@@ -1,5 +1,4 @@
-
-# Cookiecutter PyPI Sphinx Github Actions
+# Copier PyPI Sphinx Github Actions
 
 ## Overview
 
@@ -8,30 +7,31 @@ which is hosted on PyPi and uses Sphinx for documentation
 hosted on Github pages. It has a built-in CI/CD system using Github Actions.
 for features and setup. The CI system has
 the following features:
+
 - Runs any tests in `tests` with `pytest`
 - Lints code using `flake8`
 - Static code checks with `mypy`
 - Deploys PyPI package
 - Deploys Sphinx documentation on Github Pages
-    - Autodoc/autosummary already set up
-    - Automatic sitemap.xml generated
-    - Just add Google Analytics ID to enable tracking
-    - Read the Docs Theme with Custom CSS
-    - Notebook-style examples with Sphinx Gallery complete with download and Binder links
-        - Auto-converts Jupyter notebooks in `nbexamples`
+  - Autodoc/autosummary already set up
+  - Automatic sitemap.xml generated
+  - Just add Google Analytics ID to enable tracking
+  - Read the Docs Theme with Custom CSS
+  - Notebook-style examples with Sphinx Gallery complete with download and Binder links
+    - Auto-converts Jupyter notebooks in `nbexamples`
 - Auto-merges pull requests by maintainers
 - Automatically creates release notes based on merged pull requests
-once a commit is done to master with the version changed in `conf.py`
-- Syncs new changes from the cookiecutter template using `cruft`
-on a cron workflow. Creates a PR with the changes to be merged
-manually. Creates an issue if it is not possible to commit the changes (when there are
-changes to workflow files).
+  once a commit is done to master with the version changed in `conf.py`
+- Syncs new changes from the copier template using `cruft`
+  on a cron workflow. Creates a PR with the changes to be merged
+  manually. Creates an issue if it is not possible to commit the changes (when there are
+  changes to workflow files).
 - Collects TODO comments and converts them into issues
 - Closes TODO issues once comments are removed
 
 ## Getting Started
 
-### Create Project from Cookiecutter using Cruft
+### Create Project from Copier using Cruft
 
 Install [cruft](https://github.com/timothycrosley/cruft)
 if you haven't installed it yet:
@@ -40,7 +40,7 @@ if you haven't installed it yet:
 
 Generate a Python package project:
 
-    cruft create https://github.com/nickderobertis/cookiecutter-pypi-sphinx
+    cruft create https://github.com/nickderobertis/copier-pypi-sphinx-flexlate
 
 ### Create git repo
 
@@ -49,6 +49,7 @@ Create the git repo and push to Github.
 ### Adding Secrets
 
 Go into the repo settings, under Secrets, and add the following secrets:
+
 - `pypi_password`: Personal token for PyPI
 - `gh_token`: Github personal access token
 - `CODECOV_TOKEN` (optional): [codecov.io](https://codecov.io) token for this project
@@ -67,11 +68,14 @@ Add your project code to the folder named by `PACKAGE_NAME`.
 ### Adding Global Requirements to Build
 
 If you do not already have `pipenv` installed, you will need to run:
+
 ```
 pip install pipenv
 ```
+
 Then regardless of whether you already had `pipenv` installed, you will
 need to navigate to the repo folder and run:
+
 ```
 pipenv update
 ```
@@ -101,18 +105,19 @@ a `gh-pages` branch which has the documentation HTML in it.
 ### Check Labels
 
 The following labels are used in the CI/CD. They should have been added in Labels in the
-repo settings after the Github Actions from the first push have 
+repo settings after the Github Actions from the first push have
 finished running:
+
 - `no auto merge`: added to prevent automatic merging of
-pull requests by maintainers
+  pull requests by maintainers
 - `maintenance`: one of the output categories for release notes
 - `automated pr`: Used by automated template update cron workflow which
-uses `cruft` to check for changes in the template and opens a PR
-automatically if so.
+  uses `cruft` to check for changes in the template and opens a PR
+  automatically if so.
 - `automated issue`: Due to limitations in Github Actions, the template update
-cron workflow is not able to commit to the repo if the changes include changes to
-workflow files. It instead raises an issue to update the template in this case. This
-label is applied to these issues as well as the `maintenance` label.
+  cron workflow is not able to commit to the repo if the changes include changes to
+  workflow files. It instead raises an issue to update the template in this case. This
+  label is applied to these issues as well as the `maintenance` label.
 
 ### Github Pages Setup
 
@@ -133,7 +138,6 @@ and select "gh-pages branch" as described.
 
 ### Optional Steps
 
-
 #### Set Master to Protected Branch
 
 It is recommended to make master a protected branch so that nobody can
@@ -150,6 +154,7 @@ token for Codecov to use in the next step.
 ### On Every Push
 
 Github Actions are used to automatically run the following steps on every push:
+
 - Check Python syntax with `flake8`
 - Run `pytest`
 - Static typing checks with `mypy`
@@ -157,29 +162,34 @@ Github Actions are used to automatically run the following steps on every push:
 ### When Branch is `master`
 
 If the branch is the `master` branch, then it will also:
+
 - Upload `pytest` results to `codecov`
 
 #### If there is a change in `docsrc`
 
 If the branch is the master branch, and there was a change in `docsrc`, it will do
 all the steps in On Every Push and When Branch is `master`, then it will:
+
 - Build documentation HTML using Sphinx
 - Create `gh-pages` branch and copy HTML there
 - Push to `gh-pages` branch, which will update the hosted documentation
 
 #### If there is a change in the package version
+
 If the branch is the master branch, and there was a change in the package version
 in `conf.py`, it will do
 all the steps in On Every Push and When Branch is `master`, then it will:
+
 - Build documentation HTML using Sphinx
 - Create `gh-pages` branch and copy HTML there
 - Push to `gh-pages` branch, which will update the hosted documentation
 - Build Python package
 - Upload Python package to PyPI
-- Create a Github release pointing to any merged pull requests since 
-the last version bump
+- Create a Github release pointing to any merged pull requests since
+  the last version bump
 
 ### If a Pull Request is Opened
+
 The CI/CD system will check whether the pull request was opened by a maintainer
 (configured in conf.py). If so, it will auto-merge the pull request after
 it has passed CI checks. It will then run the deployment pipeline. To avoid
@@ -201,6 +211,7 @@ the HTML files in the `docs` folder via a browser after building them.
 ### Building Documentation
 
 Navigate into the `docsrc` folder and run:
+
 ```
 pipenv run make github
 ```
@@ -210,6 +221,7 @@ This should generate documentation HTML in the `docs` folder.
 ### Uploading to PyPi
 
 Navigate to the repo base folder and run:
+
 ```
 pipenv run python upload.py
 ```
@@ -222,14 +234,13 @@ requirements. Run `pipenv update` locally to update the
 the `master` branch to get the dependencies updated
 on the CI/CD system.
 
-### Syncing with the `cookiecutter` template
+### Syncing with the `copier` template
 
 There is a built-in workflow which runs daily to check for
-updates in the `cookiecutter` template. If it finds an update,
+updates in the `copier` template. If it finds an update,
 it will use `cruft` to apply the update and raise a PR with the
 changes. Manually review the changes, adjusting if needed, then
 merge the PR to keep updated with the template.
-
 
 ## Links
 

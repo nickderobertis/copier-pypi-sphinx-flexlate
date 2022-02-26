@@ -1,3 +1,0 @@
-"""
-{{ cookiecutter.short_description }}
-"""

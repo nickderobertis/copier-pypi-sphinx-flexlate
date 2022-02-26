@@ -1,4 +1,3 @@
-{% raw %}
 {%- macro automodule(modname, options) -%}
 .. automodule:: {{ modname }}
 {%- for option in options %}
@@ -51,4 +50,3 @@ Module contents
 
 {{ automodule(pkgname, automodule_options) }}
 {% endif %}
-{% endraw %}

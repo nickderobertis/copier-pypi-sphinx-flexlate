@@ -181,7 +181,7 @@ html_sidebars = {
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
 #
-{% if cookiecutter.logo_url %}
+{% if logo_url %}
 html_logo = str(pathlib.Path('_static') / 'images' / 'logo.svg')
 {% else %}
 # Uncomment the following line once logo url is set in main conf.py
@@ -192,7 +192,7 @@ html_logo = str(pathlib.Path('_static') / 'images' / 'logo.svg')
 # the docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
 # pixels large.
 #
-{% if cookiecutter.logo_url %}
+{% if logo_url %}
 html_favicon = str(pathlib.Path('_static') / 'images' / 'logo.svg')
 {% else %}
 # Uncomment the following line once logo url is set in main conf.py
