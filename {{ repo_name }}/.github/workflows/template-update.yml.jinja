@@ -49,9 +49,9 @@ jobs:
       uses: nickderobertis/check-if-issue-exists-action@master
       id: check_if_issue_exists
       with: {% endraw %}
-        repo: {{ cookiecutter.repo_username }}/{{ cookiecutter.repo_name }} {% raw %}
+        repo: {{ repo_username }}/{{ repo_name }} {% raw %}
         token: ${{ secrets.gh_token }}
-        title: Manual Update to Files from Cookiecutter Needed
+        title: Manual Update to Files from Copier Needed
         labels: automated issue, maintenance
     - name: Create Issue to Manually Update Template
       if: steps.template_check.outputs.template_update == 'true' && steps.workflow_update_check.outputs.workflow_updated && !steps.check_if_issue_exists.outputs.exists
@@ -65,20 +65,20 @@ jobs:
       uses: peter-evans/create-pull-request@v2
       with:
         token: ${{ secrets.gh_token }}
-        commit-message: Update template from Cookiecutter using Cruft
+        commit-message: Update template from Copier using Cruft
         author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
         committer: GitHub <noreply@github.com>
-        title: 'Update template from Cookiecutter using Cruft'
+        title: 'Update template from Copier using Cruft'
         body: |
-          Update template from Cookiecutter using Cruft.
+          Update template from Copier using Cruft.
 
           Before merging, review the changes and adjust manually if necessary. Especially look for
           new files ending with `.orig` being added as this signifies a merge conflict that
           needs to be resolved.
 
-          - Updates coming from [cookiecutter-pypi-sphinx][1]
+          - Updates coming from [copier-pypi-sphinx-flexlate][1]
 
-          [1]: https://github.com/nickderobertis/cookiecutter-pypi-sphinx
+          [1]: https://github.com/nickderobertis/copier-pypi-sphinx-flexlate
         labels: no auto merge, automated pr
         branch: template-patches
 {% endraw %}

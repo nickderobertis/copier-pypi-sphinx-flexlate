@@ -2,7 +2,7 @@ from typing import Sequence
 import shlex
 import subprocess
 
-PACKAGES = "{{ cookiecutter.install_packages }}".split(",")
+PACKAGES = "{{ install_packages }}".split(",")
 
 
 def stream_process(process):

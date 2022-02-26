@@ -2,16 +2,16 @@
 # Sphinx configuration is in the docsrc folder
 
 # Main package name
-PACKAGE_NAME = "{{ cookiecutter.package_name }}"
+PACKAGE_NAME = "{{ package_name }}"
 
 # Directory name of package
-PACKAGE_DIRECTORY = "{{ cookiecutter.package_directory }}"
+PACKAGE_DIRECTORY = "{{ package_directory }}"
 
 # Name of Repo
-REPO_NAME = "{{ cookiecutter.repo_name }}"
+REPO_NAME = "{{ repo_name }}"
 
 # Github username of the user which owns the repo
-REPO_USERNAME = "{{ cookiecutter.repo_username }}"
+REPO_USERNAME = "{{ repo_username }}"
 
 # List of maintainers of package, by default the same user which owns the repo
 # Pull requests raised by these maintainers without the "no auto merge" label will be automatically merged
@@ -23,7 +23,7 @@ REPO_MAINTAINERS = [
 PACKAGE_VERSION_TUPLE = (0, 1, 0)
 
 # Short description of the package
-PACKAGE_SHORT_DESCRIPTION = "{{ cookiecutter.short_description }}"
+PACKAGE_SHORT_DESCRIPTION = "{{ short_description }}"
 
 # Long description of the package for PyPI
 # Set to 'auto' to use README.md as the PyPI description
@@ -31,10 +31,10 @@ PACKAGE_SHORT_DESCRIPTION = "{{ cookiecutter.short_description }}"
 PACKAGE_DESCRIPTION = 'auto'
 
 # Author
-PACKAGE_AUTHOR = "{{ cookiecutter.package_author }}"
+PACKAGE_AUTHOR = "{{ package_author }}"
 
 # Author email
-PACKAGE_AUTHOR_EMAIL = "{{ cookiecutter.author_email }}"
+PACKAGE_AUTHOR_EMAIL = "{{ author_email }}"
 
 # Name of license for package
 PACKAGE_LICENSE = 'MIT'
@@ -104,7 +104,7 @@ SCRIPTS = []
 # Optional Google Analytics tracking ID for documentation
 # Go to https://analytics.google.com/ and set it up for your documentation URL
 # Set to None or empty string to not use this
-GOOGLE_ANALYTICS_TRACKING_ID = "{{ cookiecutter.google_analytics_id }}"
+GOOGLE_ANALYTICS_TRACKING_ID = "{{ google_analytics_id }}"
 
 PACKAGE_URLS = {
     'Code': f'https://github.com/{REPO_USERNAME}/{REPO_NAME}',
@@ -112,7 +112,7 @@ PACKAGE_URLS = {
 }
 
 # Url of logo
-PACKAGE_LOGO_URL = "{{ cookiecutter.logo_url }}"
+PACKAGE_LOGO_URL = "{{ logo_url }}"
 
 # Does not affect anything about the current package. Simply used for tracking when this repo was created off
 # of the quickstart template, so it is easier to bring over new changes to the template.
