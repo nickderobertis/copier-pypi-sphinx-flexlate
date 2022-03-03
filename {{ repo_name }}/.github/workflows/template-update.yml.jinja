@@ -1,5 +1,5 @@
 {% raw %}
-name: Update Template using Cruft
+name: Update Template using Flexlate
 
 on:
   schedule:
@@ -31,7 +31,7 @@ jobs:
     - name: Check if template is out of date
       id: template_check
       run: |
-        if ! pipenv run cruft check; then
+        if ! pipenv run fxt check; then
           echo "Need to update template. Will do so and open PR.";
           echo ::set-output name=template_update::true;
         else
@@ -40,7 +40,7 @@ jobs:
         fi;
     - name: Template Update
       if: steps.template_check.outputs.template_update == 'true'
-      run: pipenv run cruft update -s;
+      run: pipenv run fxt update -n;
     - name: Determine if Github Actions Workflow Updated
       id: workflow_update_check
       if: steps.template_check.outputs.template_update == 'true'
@@ -65,16 +65,14 @@ jobs:
       uses: peter-evans/create-pull-request@v2
       with:
         token: ${{ secrets.gh_token }}
-        commit-message: Update template from Copier using Cruft
+        commit-message: Update template from Copier using Flexlate
         author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
         committer: GitHub <noreply@github.com>
-        title: 'Update template from Copier using Cruft'
+        title: 'Update template from Copier using Flexlate'
         body: |
-          Update template from Copier using Cruft.
+          Update template from Copier using Flexlate.
 
-          Before merging, review the changes and adjust manually if necessary. Especially look for
-          new files ending with `.orig` being added as this signifies a merge conflict that
-          needs to be resolved.
+          Before merging, review the changes and adjust manually if necessary.
 
           - Updates coming from [copier-pypi-sphinx-flexlate][1]
 

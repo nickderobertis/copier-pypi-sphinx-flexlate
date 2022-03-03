@@ -22,7 +22,7 @@ the following features:
 - Auto-merges pull requests by maintainers
 - Automatically creates release notes based on merged pull requests
   once a commit is done to master with the version changed in `conf.py`
-- Syncs new changes from the copier template using `cruft`
+- Syncs new changes from the copier template using Flexlate
   on a cron workflow. Creates a PR with the changes to be merged
   manually. Creates an issue if it is not possible to commit the changes (when there are
   changes to workflow files).
@@ -31,16 +31,16 @@ the following features:
 
 ## Getting Started
 
-### Create Project from Copier using Cruft
+### Create Project from Copier using Flexlate
 
-Install [cruft](https://github.com/timothycrosley/cruft)
+Install [Flexlate](https://github.com/nickderobertis/flexlate)
 if you haven't installed it yet:
 
-    pip install cruft
+    pip install flexlate
 
 Generate a Python package project:
 
-    cruft create https://github.com/nickderobertis/copier-pypi-sphinx-flexlate
+    fxt init-from https://github.com/nickderobertis/copier-pypi-sphinx-flexlate
 
 ### Create git repo
 
@@ -58,7 +58,7 @@ Go into the repo settings, under Secrets, and add the following secrets:
 
 Edit `conf.py` in the main repo directory. This contains the main
 settings for the PyPi package. The settings should be mostly filled out
-from using `cruft`, but specific package details such as dependencies
+from using Flexlate, but specific package details such as dependencies
 still need to be added.
 
 ### Adding Project Source
@@ -112,7 +112,7 @@ finished running:
   pull requests by maintainers
 - `maintenance`: one of the output categories for release notes
 - `automated pr`: Used by automated template update cron workflow which
-  uses `cruft` to check for changes in the template and opens a PR
+  uses Flexlate to check for changes in the template and opens a PR
   automatically if so.
 - `automated issue`: Due to limitations in Github Actions, the template update
   cron workflow is not able to commit to the repo if the changes include changes to
@@ -238,7 +238,7 @@ on the CI/CD system.
 
 There is a built-in workflow which runs daily to check for
 updates in the `copier` template. If it finds an update,
-it will use `cruft` to apply the update and raise a PR with the
+it will use Flexlate to apply the update and raise a PR with the
 changes. Manually review the changes, adjusting if needed, then
 merge the PR to keep updated with the template.
 
