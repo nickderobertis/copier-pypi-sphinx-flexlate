@@ -52,10 +52,10 @@ jobs:
             echo "Encountered conflicts while trying to apply update. Will open an issue rather than a PR.";
             echo ::set-output name=raise_update_issue::true;
           fi;
-      - name: Determine if Github Actions Workflow Updated
+      - name: Create Issue Template, Checking if Github Actions Workflow Updated
         id: workflow_update_check
         if: steps.template_check.outputs.template_update == 'true'
-        run: bash scripts/workflows-updated.sh
+        run: bash scripts/create-flexlate-issue-template.sh
       - name: Check if Issue Exists
         uses: nickderobertis/check-if-issue-exists-action@master
         id: check_if_issue_exists
@@ -71,27 +71,29 @@ jobs:
           filename: temp-issue-template.md
         env:
           GITHUB_TOKEN: ${{ secrets.gh_token }}
+      - name: Remove temporary issue template so it does not get committed
+        run: rm temp-issue-template.md
       - name: Push changes to Flexlate template branch
-        if: steps.template_check.outputs.template_update == 'true' && steps.workflow_update_check.outputs.workflow_updated == 'false'
+        if: steps.template_check.outputs.template_update == 'true' && steps.template_update.outputs.raise_update_issue == 'false' && steps.workflow_update_check.outputs.workflow_updated == 'false'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.gh_token }}
           branch: flexlate-templates-template-patches
       - name: Push changes to Flexlate output branch
-        if: steps.template_check.outputs.template_update == 'true' && steps.workflow_update_check.outputs.workflow_updated == 'false'
+        if: steps.template_check.outputs.template_update == 'true' && steps.template_update.outputs.raise_update_issue == 'false' && steps.workflow_update_check.outputs.workflow_updated == 'false'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.gh_token }}
           branch: flexlate-output-template-patches
       - name: Set back to main branch
-        if: steps.template_check.outputs.template_update == 'true' && steps.workflow_update_check.outputs.workflow_updated == 'false'
+        if: steps.template_check.outputs.template_update == 'true' && steps.template_update.outputs.raise_update_issue == 'false' && steps.workflow_update_check.outputs.workflow_updated == 'false'
         run: |
           git checkout "$CHECKOUT_BRANCH"
           git merge template-patches
         env:
           CHECKOUT_BRANCH: ${{ github.ref_name }}
       - name: Create PR with template update
-        if: steps.template_check.outputs.template_update == 'true' && steps.workflow_update_check.outputs.workflow_updated == 'false'
+        if: steps.template_check.outputs.template_update == 'true' && steps.template_update.outputs.raise_update_issue == 'false' && steps.workflow_update_check.outputs.workflow_updated == 'false'
         uses: peter-evans/create-pull-request@v3
         with:
           token: ${{ secrets.gh_token }}
