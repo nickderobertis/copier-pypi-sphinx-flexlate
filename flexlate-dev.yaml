@@ -1,0 +1,13 @@
+serve:
+  data:
+    author_email: derobertis.nick@gmail.com
+    full_name: My Package
+    google_analytics_id: ''
+    install_packages: ''
+    logo_url: ''
+    package_author: Nick DeRobertis
+    package_directory: my_package
+    package_name: my-package
+    repo_name: my-package
+    repo_username: nickderobertis
+    short_description: A short description
