@@ -101,7 +101,7 @@ language = None
 exclude_patterns = ['**.ipynb_checkpoints']
 
 # The name of the Pygments (syntax highlighting) style to use.
-pygments_style = 'sphinx'
+pygments_style = 'default'
 
 # If true, `todo` and `todoList` produce output, else they produce nothing.
 todo_include_todos = True
@@ -156,8 +156,9 @@ html_theme = 'sphinx_material'
 html_theme_options = dict(
     nav_title=project,
     base_url=conf.PACKAGE_URLS['Documentation'],
-    color_primary='green',
-    color_accent='light-green',
+    color_primary='indigo',
+    color_accent='deep-purple',
+    logo_icon='&#xe869',
     repo_url=conf.PACKAGE_URLS['Code'],
     repo_name=conf.REPO_NAME,
     globaltoc_depth=3,
