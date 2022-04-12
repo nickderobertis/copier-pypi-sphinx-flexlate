@@ -11,6 +11,9 @@ _envops:
   variable_end_string: "}}"
   variable_start_string: "{{"
 
+_tasks:
+  - "chmod +x ./docsrc/autobuild.sh"
+
 package_name:
   type: str
   help: Name of the package on PyPI
