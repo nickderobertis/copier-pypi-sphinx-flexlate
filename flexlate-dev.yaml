@@ -1,13 +1,29 @@
-serve:
-  data:
-    author_email: derobertis.nick@gmail.com
-    full_name: My Package
-    google_analytics_id: ''
-    install_packages: ''
-    logo_url: ''
-    package_author: Nick DeRobertis
-    package_directory: my_package
-    package_name: my-package
-    repo_name: my-package
-    repo_username: nickderobertis
-    short_description: A short description
+data:
+  default:
+    data:
+      author_email: derobertis.nick@gmail.com
+      full_name: My Package
+      google_analytics_id: ""
+      install_packages: ""
+      logo_url: ""
+      package_author: Nick DeRobertis
+      package_directory: my_package
+      package_name: my-package
+      repo_name: my-package
+      repo_username: nickderobertis
+      short_description: A short description
+    folder_name: project
+run_configs:
+  default_publish:
+    post_init:
+      - gh repo create --source=.
+    post_update:
+      - git push --all origin
+  default_serve:
+    data_name: default
+  docs:
+    post_init:
+      - pipenv sync
+      - pipenv run bash -c "cd docsrc && make github"
+      - run: pipenv run bash -c "cd docsrc && ./dev-server.sh"
+        background: true
