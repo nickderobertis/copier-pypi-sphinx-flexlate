@@ -218,6 +218,14 @@ pipenv run make github
 
 This should generate documentation HTML in the `docs` folder.
 
+For development, get an auto-reloading development server by running:
+
+```shell
+pipenv shell
+cd docsrc
+./dev-server.sh
+```
+
 ### Uploading to PyPi
 
 Navigate to the repo base folder and run:
