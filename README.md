@@ -61,6 +61,15 @@ settings for the PyPi package. The settings should be mostly filled out
 from using Flexlate, but specific package details such as dependencies
 still need to be added.
 
+### Automatic Templates Updates via CI
+
+Enable automatic updates of the templates via CI by adding the official [Flexlate Github Actions template](https://github.com/nickderobertis/copier-flexlate-github-actions):
+
+```shell
+fxt add source https://github.com/nickderobertis/copier-flexlate-github-actions
+fxt add output copier-flexlate-github-actions
+```
+
 ### Adding Project Source
 
 Add your project code to the folder named by `PACKAGE_NAME`.
