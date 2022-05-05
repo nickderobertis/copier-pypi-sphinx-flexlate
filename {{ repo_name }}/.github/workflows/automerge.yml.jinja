@@ -1,3 +1,4 @@
+{%- raw %}
 name: automerge
 on:
   pull_request:
@@ -111,7 +112,9 @@ jobs:
     steps:
       - uses: actions/checkout@v1
         with:
-          ref: refs/heads/master
+        {%- endraw %}
+          ref: refs/heads/{{ main_branch_name }}
+        {%- raw %}
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v1
         with:
@@ -169,3 +172,4 @@ jobs:
           publish: true
         env:
           GITHUB_TOKEN: ${{ secrets.gh_token }}
+{%- endraw %}

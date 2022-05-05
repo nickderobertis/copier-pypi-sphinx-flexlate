@@ -42,6 +42,11 @@ short_description:
   type: str
   help: Main sentence or phrase to describe the project
 
+main_branch_name:
+  type: str
+  help: Name of the main branch
+  default: main
+
 package_author:
   type: str
   help: Name of the primary author of the project

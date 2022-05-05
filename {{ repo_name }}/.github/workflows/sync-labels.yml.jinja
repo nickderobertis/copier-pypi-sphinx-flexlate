@@ -2,9 +2,10 @@ name: Sync labels
 on:
   push:
     branches:
-      - master
+      - {{ main_branch_name }}
     paths:
       - .github/labels.yml
+{%- raw %}
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -16,3 +17,4 @@ jobs:
         with:
           manifest: .github/labels.yml
           prune: false
+{%- endraw %}

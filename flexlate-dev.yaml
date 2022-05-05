@@ -14,13 +14,12 @@ data:
       short_description: A short description
     folder_name: project
 run_configs:
-  default_publish:
-    post_init:
-      - gh repo create --source=.
-    post_update:
-      - git push --all origin
-  default_serve:
-    data_name: default
+  default:
+    publish:
+      post_init:
+        - gh repo create --source=.
+      post_update:
+        - git push --all origin
   docs:
     post_init:
       - pipenv sync

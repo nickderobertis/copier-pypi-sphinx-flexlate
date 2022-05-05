@@ -1,3 +1,4 @@
+
 name: Build and Push Docs
 
 on:
@@ -6,7 +7,8 @@ on:
       - "docsrc/**"
       - "README.md"
     branches:
-      - master
+      - {{ main_branch_name }}
+{%- raw %}
 
 jobs:
   # TODO [#2]: refactor docs workflow once Github Actions improves
@@ -46,7 +48,9 @@ jobs:
         run: |
           pipenv run python -m pytest --cov=./ --cov-report=xml
       - name: Upload coverage to Codecov
-        if: github.ref == 'refs/heads/master'
+      {%- endraw %}
+        if: github.ref == 'refs/heads/{{ main_branch_name }}'
+      {%- raw %}
         uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
@@ -91,3 +95,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.gh_token }}
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: ./docs
+{%- endraw %}
