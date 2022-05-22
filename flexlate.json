@@ -14,7 +14,15 @@
   "applied_templates": [
     {
       "name": "copier-flexlate-dev-semantic-release",
-      "data": {},
+      "data": {
+        "repo_name": "copier-pypi-sphinx-flexlate",
+        "full_name": "Copier PyPI Sphinx Github Actions",
+        "repo_username": "nickderobertis",
+        "short_description": "A template to use for starting a new Python package that is hosted on PyPi and uses Sphinx for documentation hosted on Github pages",
+        "author": "Nick DeRobertis",
+        "author_email": "derobertis.nick@gmail.com",
+        "main_branch_name": "master"
+      },
       "version": "8139107b2b644c89de16e406562bcf77bc388616",
       "add_mode": "local",
       "root": "."
