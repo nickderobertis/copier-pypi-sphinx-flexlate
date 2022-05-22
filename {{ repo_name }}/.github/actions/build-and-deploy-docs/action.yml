@@ -8,9 +8,11 @@ runs:
   using: composite
   steps:
     - name: Install docs-specific dependencies
+      shell: bash
       run: |
         sudo apt-get install pandoc -y
     - name: Build Documentation
+      shell: bash
       run: |
         cd docsrc
         pipenv run make github
