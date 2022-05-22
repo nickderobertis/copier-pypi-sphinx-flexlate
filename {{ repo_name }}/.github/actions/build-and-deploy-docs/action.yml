@@ -21,6 +21,6 @@ runs:
     - name: Deploy Documentation
       uses: peaceiris/actions-gh-pages@v2.5.0
       env:
-        GITHUB_TOKEN: ${{ inputs.gh_token }}
+        GITHUB_TOKEN: ${{ inputs.gh-token }}
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: ./docs
