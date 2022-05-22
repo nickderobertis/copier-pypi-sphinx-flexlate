@@ -41,19 +41,7 @@ jobs:
       - uses: ./.github/actions/install-dependencies
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Lint with flake8
-        run: |
-          pip install flake8
-          # stop the build if there are Python syntax errors or undefined names
-          flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-          # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
-          flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
-      - name: Static Typing Checks with mypy
-        run: |
-          pipenv run mypy $(python directory.py)
-      - name: Test with pytest
-        run: |
-          pipenv run python -m pytest --cov=./ --cov-report=xml
+      - uses: ./.github/actions/lint-and-test
       - name: Upload coverage to Codecov
       {%- endraw %}
         if: github.ref == 'refs/heads/{{ main_branch_name }}'
