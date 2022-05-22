@@ -29,6 +29,9 @@ the following features:
 - Collects TODO comments and converts them into issues
 - Closes TODO issues once comments are removed
 
+See
+[the example generated repo](https://github.com/nickderobertis/pypi-sphinx-flexlate-example).
+
 ## Getting Started
 
 ### Create Project from Copier using Flexlate
@@ -262,9 +265,7 @@ merge the PR to keep updated with the template.
 ## Links
 
 See
-[the example generated repo](https://github.com/nickderobertis/pypi-sphinx-quickstart)
-
-A template to use for starting a new Python package that is hosted on PyPi and uses Sphinx for documentation hosted on Github pages
+[the example generated repo](https://github.com/nickderobertis/pypi-sphinx-flexlate-example)
 
 ## Development Status
 
