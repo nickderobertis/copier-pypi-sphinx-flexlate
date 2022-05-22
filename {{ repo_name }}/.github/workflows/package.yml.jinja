@@ -19,10 +19,6 @@ jobs:
         python-version: [3.8]
 
     steps:
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
       - name: Exit Workflow if PR but not Merged
         if: github.event.action == 'closed'
         {%- endraw %}
@@ -41,16 +37,10 @@ jobs:
         env:
           GITHUB_PR_MERGED: ${{ github.event.pull_request.merged }}
           GITHUB_PR_BASE: ${{ github.event.pull_request.base.ref }}
-      - uses: actions/checkout@v1
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/install-dependencies
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install Pipenv
-        uses: dschep/install-pipenv-action@v1
-      - name: Install dependencies
-        run: |
-          pipenv sync
       - name: Lint with flake8
         run: |
           pip install flake8
@@ -99,9 +89,8 @@ jobs:
       matrix:
         python-version: [3.8]
     steps:
-      - uses: actions/checkout@v1
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/install-dependencies
         with:
           python-version: ${{ matrix.python-version }}
       - name: Get package name
@@ -115,29 +104,10 @@ jobs:
         id: output_build_version
         run: |
           bash output-version.sh
-      - name: Install Pipenv
+      - uses: ./.github/actions/build-and-deploy-docs
         if: steps.output_pypi_version.outputs.version != steps.output_build_version.outputs.version
-        uses: dschep/install-pipenv-action@v1
-      - name: Install dependencies
-        if: steps.output_pypi_version.outputs.version != steps.output_build_version.outputs.version
-        run: |
-          pipenv sync
-          sudo apt-get install pandoc -y
-      - name: Build Documentation
-        if: steps.output_pypi_version.outputs.version != steps.output_build_version.outputs.version
-        run: |
-          cd docsrc
-          pipenv run make github
-          cd ..
-          echo "" > docs/.nojekyll
-      - name: Deploy Documentation
-        if: steps.output_pypi_version.outputs.version != steps.output_build_version.outputs.version
-        continue-on-error: true
-        uses: peaceiris/actions-gh-pages@v2.5.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.gh_token }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./docs
+        with:
+          gh-token: ${{ secrets.GH_TOKEN }}
       - name: Build PyPI Package
         if: steps.output_pypi_version.outputs.version != steps.output_build_version.outputs.version
         run: |

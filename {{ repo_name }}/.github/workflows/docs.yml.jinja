@@ -27,16 +27,10 @@ jobs:
         python-version: [3.8]
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/install-dependencies
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install Pipenv
-        uses: dschep/install-pipenv-action@v1
-      - name: Install dependencies
-        run: |
-          pipenv sync
       - name: Lint with flake8
         run: |
           pip install flake8
@@ -72,27 +66,11 @@ jobs:
         python-version: [3.8]
 
     steps:
-      - uses: actions/checkout@v1
-      - name: Set up Python ${{ matrix.python-version }}
-        uses: actions/setup-python@v1
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/install-dependencies
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Install Pipenv
-        uses: dschep/install-pipenv-action@v1
-      - name: Install dependencies
-        run: |
-          pipenv sync
-          sudo apt-get install pandoc -y
-      - name: Build Documentation
-        run: |
-          cd docsrc
-          pipenv run make github
-          cd ..
-          echo "" > docs/.nojekyll
-      - name: Deploy Documentation
-        uses: peaceiris/actions-gh-pages@v2.5.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.gh_token }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./docs
+      - uses: ./.github/actions/build-and-deploy-docs
+        with:
+          gh-token: ${{ secrets.GH_TOKEN }}
 {%- endraw %}
