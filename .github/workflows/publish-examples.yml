@@ -1,0 +1,33 @@
+name: Publish Example Repositories
+on: [push, workflow_dispatch]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    name: Publish the example repositories
+    steps:
+      - name: Get repo name
+        id: repo_name
+        run: |
+          # Strip owner to get repository name
+          repo_name="${GITHUB_REPOSITORY##*/}"
+          echo "::set-output name=repo_name::$repo_name"
+      - uses: actions/checkout@v3
+        with:
+          path: ${{ steps.repo_name.outputs.repo_name }}
+      - uses: actions/setup-python@v3
+      - name: Install Flexlate Dev Tools
+        run: pip install flexlate-dev
+      - name: Configure Git Committer
+        run: |
+          git config --global user.email "derobertis.nick@gmail.com"
+          git config --global user.name "Nick DeRobertis"
+          git config --global init.defaultBranch main
+      - name: Publish the example repositories
+        run: |
+          gh auth setup-git
+          cd "$REPO_NAME"
+          dfxt publish-all -n ..
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          REPO_NAME: ${{ steps.repo_name.outputs.repo_name }}
