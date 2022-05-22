@@ -31,7 +31,7 @@ run_configs:
         - if [ -n "$(find . -prune -empty 2>/dev/null)" ]; then gh repo clone {{ data.folder_name
           }} .; else git pull origin master; fi
   docs:
-    data_name: default
+    extends: default
     serve:
       post_init:
         - pipenv sync
