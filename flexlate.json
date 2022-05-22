@@ -11,5 +11,13 @@
       "render_relative_root_in_template": "output"
     }
   ],
-  "applied_templates": []
+  "applied_templates": [
+    {
+      "name": "copier-flexlate-dev-semantic-release",
+      "data": {},
+      "version": "8139107b2b644c89de16e406562bcf77bc388616",
+      "add_mode": "local",
+      "root": "."
+    }
+  ]
 }
