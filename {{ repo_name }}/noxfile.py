@@ -2,6 +2,7 @@ import nox
 
 nox.options.sessions = ["format", "lint", "test"]
 
+
 @nox.session(python=False)
 def format(session):
     if session.interactive:
@@ -32,13 +33,17 @@ def lint(session):
 
 @nox.session
 def test(session):
-    session.install("-r", "test-requirements.txt", "--upgrade", "--upgrade-strategy", "eager")
+    session.install(
+        "-r", "test-requirements.txt", "--upgrade", "--upgrade-strategy", "eager"
+    )
     session.install(".")
     session.run("pytest")
 
 
 @nox.session
 def test_coverage(session):
-    session.install("-r", "test-requirements.txt", "--upgrade", "--upgrade-strategy", "eager")
+    session.install(
+        "-r", "test-requirements.txt", "--upgrade", "--upgrade-strategy", "eager"
+    )
     session.install(".")
     session.run("pytest", "--cov=./", "--cov-report=xml")
