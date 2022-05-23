@@ -53,6 +53,7 @@ jobs:
             semantic-release-pypi
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          PYPI_TOKEN: ${{ secrets.PYPI_PASSWORD }}
 
   coverage:
     needs: deploy
