@@ -3,10 +3,6 @@ description: "Runs isort, black, flake8, mypy, pytest. Be sure to run install-de
 runs:
   using: composite
   steps:
-    - name: Check code formatting and linting
+    - name: Check code formatting, linting, and run tests
       shell: bash
-      run: pipenv run nox -s format lint
-    # TODO: Run tests without coverage, then if they pass, run with coverage and upload but without blocking jobs
-    - name: Test with pytest
-      shell: bash
-      run: pipenv run nox -s test_coverage
+      run: pipenv run nox

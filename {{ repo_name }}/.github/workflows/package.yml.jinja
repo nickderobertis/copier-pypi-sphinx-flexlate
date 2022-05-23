@@ -1,14 +1,14 @@
-{%- raw %}
 name: Test, Build and Push Python Package and Docs
 
 on:
   push:
     branches:
-      - "**"
-    tags-ignore:
-      - "**"
-  pull_request:
-    types: [closed]
+      - {{ main_branch_name }}
+{%- raw %}
+      - alpha
+      - beta
+      - "*.*.*"
+      - "*.*"
 
 jobs:
   test:
@@ -19,45 +19,13 @@ jobs:
         python-version: [3.8]
 
     steps:
-      - name: Exit Workflow if PR but not Merged
-        if: github.event.action == 'closed'
-        {%- endraw %}
-        run: |
-          if [ !$GITHUB_PR_BASE == '{{ main_branch_name }}' ]; then
-            echo "Not merging into {{ main_branch_name }}, exiting workflow";
-        {%- raw %}
-            exit 1;
-          fi;
-          if $GITHUB_PR_MERGED; then
-            echo "PR merged, can continue workflow"
-            exit 0;
-          fi;
-          echo "Got closed PR, not merged, exiting workflow";
-          exit 1;
-        env:
-          GITHUB_PR_MERGED: ${{ github.event.pull_request.merged }}
-          GITHUB_PR_BASE: ${{ github.event.pull_request.base.ref }}
       - uses: actions/checkout@v3
       - uses: ./.github/actions/install-dependencies
         with:
           python-version: ${{ matrix.python-version }}
       - uses: ./.github/actions/lint-and-test
-      - name: Upload coverage to Codecov
-      {%- endraw %}
-        if: github.ref == 'refs/heads/{{ main_branch_name }}'
-      {%- raw %}
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          flags: unittests
-          name: codecov-pytest
-          yml: ./codecov.yml
 
   collectTODO:
-  {%- endraw %}
-    if: github.ref == 'refs/heads/{{ main_branch_name }}'
-  {%- raw %}
     needs: test
     runs-on: ubuntu-latest
     steps:
@@ -67,9 +35,6 @@ jobs:
         id: "todo"
 
   deploy:
-  {%- endraw %}
-    if: github.ref == 'refs/heads/{{ main_branch_name }}'
-  {%- raw %}
     needs: test
     runs-on: ubuntu-latest
     strategy:
@@ -81,39 +46,25 @@ jobs:
       - uses: ./.github/actions/install-dependencies
         with:
           python-version: ${{ matrix.python-version }}
-      - name: Get package name
-        id: package_name
-        run: echo ::set-output name=package_name::$(python name.py)
-      - uses: nickderobertis/pypi-latest-version-action@master
-        id: output_pypi_version
-        with:
-          package: ${{ steps.package_name.outputs.package_name }}
-      - name: Output build version
-        id: output_build_version
-        run: |
-          bash output-version.sh
-      - uses: ./.github/actions/build-and-deploy-docs
-        if: steps.output_pypi_version.outputs.version != steps.output_build_version.outputs.version
-        with:
-          gh-token: ${{ secrets.GH_TOKEN }}
-      - name: Build PyPI Package
-        if: steps.output_pypi_version.outputs.version != steps.output_build_version.outputs.version
-        run: |
-          pipenv run python upload.py --build-only
-      - name: Upload PyPI Package
-        if: steps.output_pypi_version.outputs.version != steps.output_build_version.outputs.version
-        uses: pypa/gh-action-pypi-publish@master
-        with:
-          user: __token__
-          password: ${{ secrets.pypi_password }}
-      - name: Publish Github Release
-        if: steps.output_pypi_version.outputs.version != steps.output_build_version.outputs.version
-        uses: release-drafter/release-drafter@v5
-        with:
-          name: "v${{steps.output_build_version.outputs.version}}"
-          tag: "v${{steps.output_build_version.outputs.version}}"
-          version: "v${{steps.output_build_version.outputs.version}}"
-          publish: true
+      - name: Semantic Release
+        uses: cycjimmy/semantic-release-action@v3
         env:
-          GITHUB_TOKEN: ${{ secrets.gh_token }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+  coverage:
+    needs: deploy
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        python-version: [3.8]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/install-dependencies
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run coverage and upload to Codecov.io
+        uses: ./.github/actions/test-coverage
+        with:
+          codecov-token: ${{ secrets.CODECOV_TOKEN }}
 {%- endraw %}

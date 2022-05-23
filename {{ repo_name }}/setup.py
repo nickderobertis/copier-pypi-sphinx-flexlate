@@ -1,7 +1,6 @@
 from setuptools import find_packages, setup
 
 import conf
-from version import __version__
 
 extra_kwargs = {}
 
@@ -21,7 +20,6 @@ if conf.PACKAGE_DESCRIPTION.strip().lower() == "auto":
 
 setup(
     name=conf.PACKAGE_NAME,
-    version=__version__,
     description=conf.PACKAGE_SHORT_DESCRIPTION,
     long_description=long_description,
     author=conf.PACKAGE_AUTHOR,

@@ -24,17 +24,6 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - uses: ./.github/actions/lint-and-test
-      - name: Upload coverage to Codecov
-      {%- endraw %}
-        if: github.ref == 'refs/heads/{{ main_branch_name }}'
-      {%- raw %}
-        uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./coverage.xml
-          flags: unittests
-          name: codecov-pytest
-          yml: ./codecov.yml
 
   deploy:
     needs: test
@@ -53,4 +42,21 @@ jobs:
       - uses: ./.github/actions/build-and-deploy-docs
         with:
           gh-token: ${{ secrets.GH_TOKEN }}
+
+  coverage:
+    needs: deploy
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 1
+      matrix:
+        python-version: [3.8]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: ./.github/actions/install-dependencies
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Run coverage and upload to Codecov.io
+        uses: ./.github/actions/test-coverage
+        with:
+          codecov-token: ${{ secrets.CODECOV_TOKEN }}
 {%- endraw %}
