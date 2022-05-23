@@ -67,3 +67,4 @@ _examples
 **/.ipynb_checkpoints
 .vscode
 .nox
+node_modules

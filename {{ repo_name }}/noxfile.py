@@ -5,14 +5,33 @@ nox.options.sessions = ["format", "lint", "test"]
 
 @nox.session(python=False)
 def format(session):
+    if session.posargs:
+        files = session.posargs
+    else:
+        files = ["."]
+
     if session.interactive:
         # When run as user, format the files in place
-        session.run("isort", ".")
-        session.run("black", ".")
+        _format_in_place(session, files)
     else:
         # When run from CI, fail the check if formatting is not correct
-        session.run("isort", "--check-only", ".")
-        session.run("black", "--check", ".")
+        session.run("isort", "--check-only", *files)
+        session.run("black", "--check", *files)
+
+
+@nox.session(python=False)
+def format_files(session):
+    if session.posargs:
+        files = session.posargs
+    else:
+        files = ["."]
+
+    _format_in_place(session, files)
+
+
+def _format_in_place(session, files):
+    session.run("isort", *files)
+    session.run("black", *files)
 
 
 @nox.session(python=False)
