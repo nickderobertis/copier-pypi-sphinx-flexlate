@@ -47,3 +47,12 @@ def test_coverage(session):
     )
     session.install(".")
     session.run("pytest", "--cov=./", "--cov-report=xml")
+
+
+@nox.session(python=False)
+def docs(session):
+    session.chdir("docsrc")
+    session.run("make", "github")
+    if session.interactive:
+        session.run("ls", "-l")
+        session.run("bash", "./dev-server.sh")
