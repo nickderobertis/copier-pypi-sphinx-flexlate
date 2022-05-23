@@ -13,3 +13,10 @@ plugins:
   - "@semantic-release/release-notes-generator"
   - "semantic-release-pypi"
   - "@semantic-release/github"
+  - [
+      "@semantic-release/git",
+      {
+        assets: [ "setup.cfg" ],
+        message: "message": "chore(release): Bump to ${nextRelease.version}\n\n${nextRelease.notes}",
+      }
+    ]
