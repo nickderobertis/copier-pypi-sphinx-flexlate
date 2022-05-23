@@ -1,22 +1,23 @@
+from setuptools import find_packages, setup
+
 import conf
 from version import __version__
-from setuptools import setup, find_packages
 
 extra_kwargs = {}
 
 entry_points = None
 if conf.CONSOLE_SCRIPTS:
     entry_points = dict(console_scripts=conf.CONSOLE_SCRIPTS)
-    
+
 extras_require = None
 if conf.OPTIONAL_PACKAGE_INSTALL_REQUIRES:
     extras_require = conf.OPTIONAL_PACKAGE_INSTALL_REQUIRES
 
 long_description = conf.PACKAGE_DESCRIPTION
-if conf.PACKAGE_DESCRIPTION.strip().lower() == 'auto':
-    with open('README.md', 'r') as f:
+if conf.PACKAGE_DESCRIPTION.strip().lower() == "auto":
+    with open("README.md", "r") as f:
         long_description = f.read()
-    extra_kwargs['long_description_content_type'] = 'text/markdown'
+    extra_kwargs["long_description_content_type"] = "text/markdown"
 
 setup(
     name=conf.PACKAGE_NAME,
@@ -32,7 +33,7 @@ setup(
     install_requires=conf.PACKAGE_INSTALL_REQUIRES,
     extras_require=extras_require,
     project_urls=conf.PACKAGE_URLS,
-    url=conf.PACKAGE_URLS['Code'],
+    url=conf.PACKAGE_URLS["Code"],
     scripts=conf.SCRIPTS,
     entry_points=entry_points,
     **extra_kwargs
