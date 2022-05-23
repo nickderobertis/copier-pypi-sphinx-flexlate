@@ -58,8 +58,12 @@ jobs:
           PYPI_TOKEN: ${{ secrets.PYPI_PASSWORD }}
       - name: Save version in setup.cfg from semantic-release
         run: |
+          git config --global user.email "$GITHUB_ACTOR@users.noreply.github.com"
+          git config --global user.name "$GITHUB_ACTOR"
           git add -A
           git commit -m "chore: Update version in setup.cfg"
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
 
   coverage:
     needs: deploy
