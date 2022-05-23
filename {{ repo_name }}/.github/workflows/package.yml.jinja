@@ -56,6 +56,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           PYPI_TOKEN: ${{ secrets.PYPI_PASSWORD }}
+      - name: Save version in setup.cfg from semantic-release
+        run: |
+          git add -A
+          git commit -m "chore: Update version in setup.cfg"
 
   coverage:
     needs: deploy
