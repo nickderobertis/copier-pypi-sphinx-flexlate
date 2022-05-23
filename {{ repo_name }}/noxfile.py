@@ -1,10 +1,17 @@
 import nox
 
+nox.options.sessions = ["format", "lint", "test"]
 
 @nox.session(python=False)
 def format(session):
-    session.run("isort", ".")
-    session.run("black", ".")
+    if session.interactive:
+        # When run as user, format the files in place
+        session.run("isort", ".")
+        session.run("black", ".")
+    else:
+        # When run from CI, fail the check if formatting is not correct
+        session.run("isort", "--check-only", ".")
+        session.run("black", "--check", ".")
 
 
 @nox.session(python=False)
@@ -25,6 +32,13 @@ def lint(session):
 
 @nox.session
 def test(session):
-    session.install("-r", "test-requirements.txt")
+    session.install("-r", "test-requirements.txt", "--upgrade", "--upgrade-strategy", "eager")
     session.install(".")
     session.run("pytest")
+
+
+@nox.session
+def test_coverage(session):
+    session.install("-r", "test-requirements.txt", "--upgrade", "--upgrade-strategy", "eager")
+    session.install(".")
+    session.run("pytest", "--cov=./", "--cov-report=xml")
