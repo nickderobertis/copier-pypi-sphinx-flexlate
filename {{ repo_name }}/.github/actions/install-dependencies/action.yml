@@ -23,4 +23,4 @@ runs:
     - name: Install dependencies
       shell: bash
       run: |
-        pipenv sync
+        pipenv --python ${{ matrix.python-version }} sync
