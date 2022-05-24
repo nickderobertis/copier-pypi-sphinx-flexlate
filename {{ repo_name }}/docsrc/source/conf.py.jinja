@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
+# isort: skip_file
 # -*- coding: utf-8 -*-
 #
-# dero documentation build configuration file, created by
+# documentation build configuration file, created by
 # sphinx-quickstart on Sat Aug  3 16:59:37 2019.
 #
 # This file is execfile()d with the current directory set to its
