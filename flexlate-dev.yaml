@@ -8,6 +8,11 @@ data:
       install_packages: ""
       logo_url: ""
       main_branch_name: main
+      minimum_python_version: "3.8"
+      os_support:
+        - ubuntu
+        - macos
+        - windows
       package_author: Nick DeRobertis
       package_directory: pypi_sphinx_flexlate_example
       package_name: pypi-sphinx-flexlate-example
