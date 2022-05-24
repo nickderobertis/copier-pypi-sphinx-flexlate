@@ -14,12 +14,6 @@ runs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-        cache: pipenv
-    - uses: actions/cache@v3
-      name: Cache global dependencies
-      with:
-        path: ${{ env.pythonLocation }}
-        key: ${{ env.pythonLocation }}-${{ hashFiles('*-requirements.txt') }}
     - name: Install dependencies
       shell: bash
       run: |
