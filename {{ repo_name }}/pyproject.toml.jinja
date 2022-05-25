@@ -1,5 +1,5 @@
 [tool.black]
-include = '{{ package_directory }}|tests'
+include = '{{ package_directory }}.*\.pyi?$|tests.*\.pyi?$'
 
 [tool.isort]
 profile = "black"
