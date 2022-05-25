@@ -1,5 +1,13 @@
 name: Publish Example Repositories
-on: [push, workflow_dispatch]
+on:
+  push:
+    branches:
+      - master
+      - alpha
+      - beta
+    tags-ignore:
+      - "**"
+  workflow_dispatch:
 
 jobs:
   publish:
@@ -16,8 +24,13 @@ jobs:
         with:
           path: ${{ steps.repo_name.outputs.repo_name }}
       - uses: actions/setup-python@v3
+        with:
+          cache: pip
+          cache-dependency-path: "**/publish-requirements.txt"
       - name: Install Flexlate Dev Tools
-        run: pip install flexlate-dev
+        run: pip install -r "$REPO_NAME/publish-requirements.txt"
+        env:
+          REPO_NAME: ${{ steps.repo_name.outputs.repo_name }}
       - name: Configure Git Committer
         run: |
           git config --global user.email "derobertis.nick@gmail.com"

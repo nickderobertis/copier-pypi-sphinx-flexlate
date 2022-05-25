@@ -8,6 +8,11 @@ data:
       install_packages: ""
       logo_url: ""
       main_branch_name: main
+      minimum_python_version: "3.8"
+      os_support:
+        - ubuntu
+        - macos
+        - windows
       package_author: Nick DeRobertis
       package_directory: pypi_sphinx_flexlate_example
       package_name: pypi-sphinx-flexlate-example
@@ -22,18 +27,26 @@ run_configs:
     publish:
       post_init:
         - gh repo create --public --source=.
-        - git push origin master
+        - git push origin main
         - git push --all origin
       post_update:
         - fxt merge
+        - echo $(date) > .github/IGNORE_THIS_FILE.txt
+        - git add -A
+        - "git commit -m 'feat: Add a dummy change to trigger release'"
         - git push --all origin
       pre_check:
         - if [ -n "$(find . -prune -empty 2>/dev/null)" ]; then gh repo clone {{ data.folder_name
-          }} .; else git pull origin master; fi
+          }} .; else git pull origin main; fi
+    serve:
+      post_init:
+        - npm install
+      auto_commit_message: "chore: Auto-commit manual changes"
   docs:
     extends: default
     serve:
       post_init:
+        - npm install
         - pipenv sync
         - pipenv run bash -c "cd docsrc && make github"
         - run: pipenv run bash -c "cd docsrc && ./dev-server.sh"

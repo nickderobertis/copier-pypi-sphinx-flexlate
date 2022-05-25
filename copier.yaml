@@ -62,6 +62,30 @@ google_analytics_id:
   help: Optional Google Analytics ID for documentation
   default: ""
 
+os_support:
+  type: yaml
+  help: OS support for the project
+  default: "[ubuntu, macos, windows]"
+  choices:
+    All: "[ubuntu, macos, windows]"
+    No Windows: "[ubuntu, macos]"
+    No MacOS: "[ubuntu, windows]"
+    No Linux: "[macos, windows]"
+    Linux: "[ubuntu]"
+    Windows: "[windows]"
+    MacOS: "[macos]"
+
+minimum_python_version:
+  type: str
+  help: Minimum python version required for the project
+  default: "3.8"
+  choices:
+    - "3.6"
+    - "3.7"
+    - "3.8"
+    - "3.9"
+    - "3.10"
+
 logo_url:
   type: str
   help: Optional URL of a logo to use for the project
