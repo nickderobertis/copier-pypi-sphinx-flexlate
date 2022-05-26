@@ -40,8 +40,11 @@ upgrades will often have breaking changes.
 
 ## Developing
 
-Clone the repo and run `npm install` and `pipenv sync`. Make your changes
-and then run `nox` to run formatting, linting, and tests.
+First ensure that you have `pipx` installed, if not, install it with `pip install pipx`.
+
+Then clone the repo and run `npm install` and `pipenv sync`. Run `pipenv shell`
+to use the virtual environment. Make your changes and then run `nox` to run formatting,
+linting, and tests.
 
 Develop documentation by running `nox -s docs` to start up a dev server.
 
