@@ -41,6 +41,7 @@ run_configs:
     serve:
       post_init:
         - npm install
+        - pipenv sync
       auto_commit_message: "chore: Auto-commit manual changes"
   docs:
     extends: default
