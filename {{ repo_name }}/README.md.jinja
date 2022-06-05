@@ -1,7 +1,20 @@
+{%- set ns = namespace(python_support_url_fragment="") %}
+{%- set python_minor_version = minimum_python_version | replace("3.", "") | int  %}
+{%- for minor_version in range(python_minor_version, 11)  %}
+{%- if loop.first %}
+{%- set ns.python_support_url_fragment = ns.python_support_url_fragment + "3.{}".format(minor_version) %}
+{%- else %}
+{%- set ns.python_support_url_fragment = ns.python_support_url_fragment + "%20%7C%203.{}".format(minor_version) %}
+{%- endif %}
+{%- endfor %}
+
 [![](https://codecov.io/gh/{{ repo_username }}/{{ repo_name }}/branch/{{ main_branch_name }}/graph/badge.svg)](https://codecov.io/gh/{{ repo_username }}/{{ repo_name }})
 [![PyPI](https://img.shields.io/pypi/v/{{ package_name }})](https://pypi.org/project/{{ package_name }}/)
 ![PyPI - License](https://img.shields.io/pypi/l/{{ package_name }})
 [![Documentation](https://img.shields.io/badge/documentation-pass-green)](https://{{ repo_username }}.github.io/{{ repo_name }}/)
+{%- for os_base in os_support %}
+![Tests Run on {{ os_base | title }} Python Versions](https://img.shields.io/badge/Tests%20{{ os_base | title }}%2FPython-{{ ns.python_support_url_fragment }}-blue)
+{%- endfor %}
 [![Github Repo](https://img.shields.io/badge/repo-github-informational)](https://github.com/{{ repo_username }}/{{ repo_name }}/)
 
 
@@ -47,6 +60,9 @@ to use the virtual environment. Make your changes and then run `nox` to run form
 linting, and tests.
 
 Develop documentation by running `nox -s docs` to start up a dev server.
+
+To run tests only, run `nox -s test`. You can pass additional arguments to pytest
+by adding them after `--`, e.g. `nox -s test -- -k test_something`.
 
 ## Author
 
