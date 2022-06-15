@@ -1,3 +1,2 @@
-autoflake
 flake8
 mypy
