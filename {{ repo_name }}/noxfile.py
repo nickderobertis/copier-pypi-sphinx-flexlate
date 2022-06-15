@@ -1,3 +1,5 @@
+import os
+import platform
 import shutil
 from pathlib import Path
 from typing import Literal
@@ -147,10 +149,13 @@ def venv(session):
     else:
         raise ValueError(f"Action must be delete or update, got {action}")
 
+# If os is windows, bin folder is Scripts, otherwise bin
+bin_folder = "Scripts" if platform.system() == "Windows" else "bin"
 
 def _run_in_venv(session, venv_name: VenvName, *args):
     venv_dir = _venv_path(venv_name)
-    new_args = ["venv-run", "--venv", str(venv_dir), *args]
+    venv_command = os.path.sep.join((str(venv_dir), bin_folder, args[0]))
+    new_args = [venv_command, *args[1:]]
     session.run(*new_args)
 
 
