@@ -36,6 +36,6 @@ runs:
         pip install -r format-requirements.txt
     - name: Create venvs
       shell: bash
-      if: steps.cache-venvs.outputs.cache-hit != "true"
+      if: steps.cache-venvs.outputs.cache-hit != 'true'
       run: |
         nox -s venv -- create lint
