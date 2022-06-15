@@ -1,6 +1,18 @@
+import shutil
+from pathlib import Path
+from typing import Literal
+
 import nox
 
 nox.options.sessions = ["format", "strip", "lint", "test"]
+
+VENVS_DIR = Path("~").expanduser() / ".venvs"
+PROJECT_NAME = Path(__file__).parent.name
+PROJECT_VENV_DIR = VENVS_DIR / PROJECT_NAME
+LINT_VENV_DIR = PROJECT_VENV_DIR / "lint"
+LINT_VENV_DIR_STR = str(LINT_VENV_DIR)
+
+VenvName = Literal["lint"]
 
 
 @nox.session(python=False)
@@ -36,10 +48,15 @@ def _format_in_place(session, files):
 
 @nox.session(python=False)
 def lint(session):
-    session.run(
+    _setup_venv(session, "lint")
+
+    def run_lint(*args):
+        _run_in_venv(session, "lint", *args)
+
+    run_lint(
         "flake8", "--count", "--select=E9,F63,F7,F82", "--show-source", "--statistics"
     )
-    session.run(
+    run_lint(
         "flake8",
         "--count",
         "--exit-zero",
@@ -47,7 +64,7 @@ def lint(session):
         "--max-line-length=127",
         "--statistics",
     )
-    session.run("mypy")
+    run_lint("mypy")
 
 
 @nox.session(python=False, name="strip")
@@ -92,3 +109,66 @@ def docs(session):
     if session.interactive:
         session.run("ls", "-l")
         session.run("bash", "./dev-server.sh")
+
+
+def _setup_venv(session, venv_name: VenvName):
+    venv_path = _venv_path(venv_name)
+    if _venv_exists(venv_name):
+        print(f"Using existing {venv_name} venv at {venv_path}")
+        return
+    session.run("virtualenv", str(venv_path))
+    _update_venv(session, venv_name)
+
+
+def _venv_path(venv_name: VenvName) -> Path:
+    return PROJECT_VENV_DIR / venv_name
+
+
+def _venv_exists(venv_name: VenvName):
+    venv_dir = _venv_path(venv_name)
+    return venv_dir.exists()
+
+
+@nox.session(python=False)
+def venv(session):
+    # Second argument is the name of the venv
+    # Third argument is one of "delete", "update"
+    if len(session.posargs) < 2:
+        raise ValueError(
+            f"Must supply first venv name and then action (delete or update), got {session.posargs}"
+        )
+    venv_name = session.posargs[0]
+    action = session.posargs[1]
+    if action == "delete":
+        _delete_venv(venv_name)
+    elif action == "update":
+        _update_venv(session, venv_name)
+    else:
+        raise ValueError(f"Action must be delete or update, got {action}")
+
+
+def _run_in_venv(session, venv_name: VenvName, *args):
+    venv_dir = _venv_path(venv_name)
+    venv_command = f"{venv_dir}/bin/{args[0]}"
+    new_args = [venv_command, *args[1:]]
+    session.run(*new_args)
+
+
+def _delete_venv(venv_name: VenvName):
+    venv_dir = _venv_path(venv_name)
+    if venv_dir.exists():
+        shutil.rmtree(venv_dir)
+        print(f"Deleted venv {venv_name} from {venv_dir}")
+    else:
+        raise ValueError(f"Venv {venv_name} does not exist at {venv_dir}")
+
+
+def _update_venv(session, venv_name: VenvName):
+    venv_dir = _venv_path(venv_name)
+    if not venv_dir.exists():
+        raise ValueError(
+            f"Venv {venv_name} does not exist at {venv_dir}, cannot update"
+        )
+    _run_in_venv(
+        session, venv_name, "pip", "install", "-r", f"{venv_name}-requirements.txt"
+    )
