@@ -28,6 +28,7 @@ the following features:
   changes to workflow files).
 - Collects TODO comments and converts them into issues
 - Closes TODO issues once comments are removed
+- Caches dependencies for faster builds
 
 See
 [the example generated repo](https://github.com/nickderobertis/pypi-sphinx-flexlate-example).
