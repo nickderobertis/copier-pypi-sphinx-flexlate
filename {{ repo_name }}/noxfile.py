@@ -149,14 +149,30 @@ def venv(session):
     else:
         raise ValueError(f"Action must be delete or update, got {action}")
 
-# If os is windows, bin folder is Scripts, otherwise bin
-bin_folder = "Scripts" if platform.system() == "Windows" else "bin"
 
 def _run_in_venv(session, venv_name: VenvName, *args):
+    new_command = _venv_command(venv_name, *args)
+    session.run(*new_command)
+
+
+def _venv_command(venv_name: VenvName, *args):
+    if platform.system() == "Windows":
+        return _venv_command_windows(venv_name, *args)
+    return _venv_command_unix(venv_name, *args)
+
+
+def _venv_command_unix(venv_name: VenvName, *args):
     venv_dir = _venv_path(venv_name)
-    venv_command = os.path.sep.join((str(venv_dir), bin_folder, args[0]))
+    venv_command = os.path.sep.join((str(venv_dir), "bin", args[0]))
     new_args = [venv_command, *args[1:]]
-    session.run(*new_args)
+    return new_args
+
+
+def _venv_command_windows(venv_name: VenvName, *args):
+    venv_dir = _venv_path(venv_name)
+    venv_command = os.path.sep.join((str(venv_dir), "Scripts", args[0] + ".exe"))
+    new_args = [venv_command, *args[1:]]
+    return new_args
 
 
 def _delete_venv(venv_name: VenvName):
