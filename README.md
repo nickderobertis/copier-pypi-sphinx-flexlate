@@ -11,7 +11,7 @@ the following features:
 - Runs any tests in `tests` with `pytest`
 - Lints code using `flake8`
 - Static code checks with `mypy`
-- Deploys PyPI package
+- Deploys PyPI package and creates corresponding Github release
 - Deploys Sphinx documentation on Github Pages
   - Autodoc/autosummary already set up
   - Automatic sitemap.xml generated
