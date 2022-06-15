@@ -24,10 +24,6 @@ runs:
       shell: bash
       run: |
         pipenv --python ${{ matrix.python-version }} sync
-    - name: Install linting dependencies
-      shell: bash
-      run: |
-        pip install -r lint-requirements.txt
     - name: Install formatting dependencies
       shell: bash
       run: |

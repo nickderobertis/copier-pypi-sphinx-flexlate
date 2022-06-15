@@ -1,3 +1,4 @@
+import os
 import shutil
 from pathlib import Path
 from typing import Literal
@@ -107,7 +108,6 @@ def docs(session):
     session.chdir("docsrc")
     session.run("make", "github")
     if session.interactive:
-        session.run("ls", "-l")
         session.run("bash", "./dev-server.sh")
 
 
@@ -149,7 +149,7 @@ def venv(session):
 
 def _run_in_venv(session, venv_name: VenvName, *args):
     venv_dir = _venv_path(venv_name)
-    venv_command = f"{venv_dir}/bin/{args[0]}"
+    venv_command = os.path.sep.join((str(venv_dir), "bin", args[0]))
     new_args = [venv_command, *args[1:]]
     session.run(*new_args)
 
