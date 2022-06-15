@@ -20,11 +20,15 @@ runs:
       with:
         path: ${{ env.pythonLocation }}
         key: ${{ env.pythonLocation }}-${{ hashFiles('*-requirements.txt') }}
+    - name: Get HOME
+      id: get-home
+      shell: bash
+      run: echo "::set-output name=home::$HOME"
     - uses: actions/cache@v3
       id: cache-venvs
       name: Cache venvs
       with:
-        path: ${{ env.HOME }}/.venvs
+        path: ${{ steps.get-home.outputs.home }}/.venvs
         key: ${{ env.pythonLocation }}-venvs-${{ hashFiles('*-requirements.txt') }}
     - name: Install main dependencies
       shell: bash
