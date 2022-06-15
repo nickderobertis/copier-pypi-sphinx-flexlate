@@ -24,7 +24,7 @@ runs:
       id: cache-venvs
       name: Cache venvs
       with:
-        path: $HOME/.venvs
+        path: ${{ env.HOME }}/.venvs
         key: ${{ env.pythonLocation }}-venvs-${{ hashFiles('*-requirements.txt') }}
     - name: Install main dependencies
       shell: bash
