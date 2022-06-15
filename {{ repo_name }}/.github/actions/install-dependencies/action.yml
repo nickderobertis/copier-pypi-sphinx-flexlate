@@ -4,6 +4,7 @@ inputs:
   python-version:
     required: true
     description: "The Python version to install dependencies for."
+
 runs:
   using: composite
   steps:
@@ -22,8 +23,11 @@ runs:
         key: ${{ env.pythonLocation }}-${{ hashFiles('*-requirements.txt') }}
     - name: Get HOME
       id: get-home
-      shell: bash
-      run: echo "::set-output name=home::$HOME"
+      shell: python
+      run: |
+        from pathlib import Path
+        home = Path("~").expanduser()
+        print(f"::set-output name=home::{home}")
     - uses: actions/cache@v3
       id: cache-venvs
       name: Cache venvs
