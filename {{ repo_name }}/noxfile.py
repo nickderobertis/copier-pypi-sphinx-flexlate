@@ -151,8 +151,7 @@ def venv(session):
 
 def _run_in_venv(session, venv_name: VenvName, *args):
     venv_dir = _venv_path(venv_name)
-    venv_command = os.path.sep.join((str(venv_dir), "bin", args[0]))
-    new_args = [venv_command, *args[1:]]
+    new_args = ["venv-run", "--venv", str(venv_dir), *args]
     session.run(*new_args)
 
 

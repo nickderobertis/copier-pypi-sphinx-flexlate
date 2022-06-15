@@ -2,4 +2,5 @@ autoflake
 black
 isort
 pip-tools
+venv-run
 virtualenv
