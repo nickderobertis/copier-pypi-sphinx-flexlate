@@ -38,4 +38,4 @@ runs:
       shell: bash
       if: steps.cache-venvs.outputs.cache-hit != 'true'
       run: |
-        nox -s venv -- create lint
+        pipenv run nox -s venv -- create lint
