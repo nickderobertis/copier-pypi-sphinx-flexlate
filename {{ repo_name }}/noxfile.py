@@ -131,18 +131,20 @@ def _venv_exists(venv_name: VenvName):
 
 @nox.session(python=False)
 def venv(session):
+    # First argument is one of "delete", "update", "create"
     # Second argument is the name of the venv
-    # Third argument is one of "delete", "update"
     if len(session.posargs) < 2:
         raise ValueError(
-            f"Must supply first venv name and then action (delete or update), got {session.posargs}"
+            f"Must supply first action (delete, update, create), then venv name, got {session.posargs}"
         )
-    venv_name = session.posargs[0]
-    action = session.posargs[1]
+    action = session.posargs[0]
+    venv_name = session.posargs[1]
     if action == "delete":
         _delete_venv(venv_name)
     elif action == "update":
         _update_venv(session, venv_name)
+    elif action == "create":
+        _setup_venv(session, venv_name)
     else:
         raise ValueError(f"Action must be delete or update, got {action}")
 
