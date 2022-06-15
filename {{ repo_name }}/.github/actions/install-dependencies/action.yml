@@ -21,18 +21,19 @@ runs:
       with:
         path: ${{ env.pythonLocation }}
         key: ${{ env.pythonLocation }}-${{ hashFiles('*-requirements.txt') }}
-    - name: Get HOME
-      id: get-home
+    - name: Get Venvs Path
+      id: get-venv-path
       shell: python
       run: |
         from pathlib import Path
         home = Path("~").expanduser()
-        print(f"::set-output name=home::{home}")
+        venv_path = home / ".venvs"
+        print(f"::set-output name=venv-path::{venv_path}")
     - uses: actions/cache@v3
       id: cache-venvs
       name: Cache venvs
       with:
-        path: ${{ steps.get-home.outputs.home }}/.venvs
+        path: ${{ steps.get-venv-path.outputs.venv-path }}
         key: ${{ env.pythonLocation }}-venvs-${{ hashFiles('*-requirements.txt') }}
     - name: Install main dependencies
       shell: bash
