@@ -30,10 +30,10 @@ runs:
       shell: bash
       run: |
         pipenv --python ${{ matrix.python-version }} sync
-    - name: Install formatting dependencies
+    - name: Install global dependencies
       shell: bash
       run: |
-        pip install -r format-requirements.txt
+        pip install -r global-requirements.txt
     - name: Create venvs
       shell: bash
       if: steps.cache-venvs.outputs.cache-hit != 'true'
