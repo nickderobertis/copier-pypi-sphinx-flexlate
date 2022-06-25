@@ -20,6 +20,11 @@ data:
       repo_name: pypi-sphinx-flexlate-example
       repo_username: nickderobertis
       short_description: Example output for https://github.com/nickderobertis/copier-pypi-sphinx-flexlate
+      topics:
+        - "flexlate"
+        - "pypi"
+        - "sphinx"
+        - "example"
     folder_name: pypi-sphinx-flexlate-example
     ignore: []
 run_configs:

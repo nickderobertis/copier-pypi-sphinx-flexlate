@@ -87,6 +87,11 @@ minimum_python_version:
     - "3.9"
     - "3.10"
 
+topics:
+  type: yaml
+  help: Topics for the project
+  default: "[]"
+
 logo_url:
   type: str
   help: Optional URL of a logo to use for the project
