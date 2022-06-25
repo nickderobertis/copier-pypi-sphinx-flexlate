@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Sync Github Topics
     steps:
-      - uses: nickderobertis/github-topic-syncer@v1
+      - uses: nickderobertis/github-topic-syncer@alpha
         with:
           topics: "{{ topics | map('lower') | map('replace', ' ', '-') | join(' ') }}"
           {%- raw %}
