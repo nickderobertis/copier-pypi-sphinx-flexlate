@@ -3,10 +3,10 @@ on:
   push:
     paths:
       - ".github/workflows/topics.yml"
-  branches:
-    - {{ main_branch_name }}
-    - alpha
-    - beta
+    branches:
+      - {{ main_branch_name }}
+      - alpha
+      - beta
 
 jobs:
   sync-topics:
@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: nickderobertis/github-topic-syncer@v1
         with:
-          topics: "{{ topics | map('replace', ' ', '-') | join(' ') }}"
+          topics: "{{ topics | map('lower') | map('replace', ' ', '-') | join(' ') }}"
           {%- raw %}
           token: ${{ secrets.gh_token }}
           {%- endraw %}
