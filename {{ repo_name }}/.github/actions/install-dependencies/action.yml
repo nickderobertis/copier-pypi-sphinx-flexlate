@@ -43,12 +43,8 @@ runs:
       shell: bash
       run: |
         pipenv --python ${{ matrix.python-version }} sync
-    - name: Install global dependencies
-      shell: bash
-      run: |
-        mvenv sync global
     - name: Create venvs
       shell: bash
       if: steps.cache-venvs.outputs.cache-hit != 'true'
       run: |
-        pipenv run nox -s venv -- create lint
+        mvenv sync global lint
