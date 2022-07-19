@@ -8,6 +8,11 @@ inputs:
 runs:
   using: composite
   steps:
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: pipenv
     - name: Install System Dependencies
       shell: bash
       run: |
@@ -15,11 +20,6 @@ runs:
         # TODO: Not sure why PyYAML install is required, but was getting import yaml error
         # This is despite this dependency getting installed on other systems.
         pip install multivenv PyYAML
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v3
-      with:
-        python-version: ${{ matrix.python-version }}
-        cache: pipenv
     - id: get-requirements-path
       shell: bash
       run: |
