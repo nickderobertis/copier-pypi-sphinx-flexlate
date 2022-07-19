@@ -23,6 +23,7 @@ runs:
     - id: get-requirements-path
       shell: bash
       run: |
+        pip freeze
         reqs_file=$(python reqs_path.py)
         global_reqs_file=$(python reqs_path.py global)
         echo "::set-output name=requirements-path::$reqs_file"
