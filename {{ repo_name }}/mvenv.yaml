@@ -1,0 +1,17 @@
+platforms:
+  - linux-x86_64
+  - win32
+venv_folder: venvs
+venv_names: null
+venvs:
+  lint:
+    requirements_out: requirements/lint-requirements.txt
+  global:
+    requirements_out: requirements/global-requirements.txt
+  test:
+    requirements_out: requirements/test-requirements.txt
+# TODO: add dev venv to replace pipenv
+versions:
+  - "3.8"
+  - "3.9"
+  - "3.10"

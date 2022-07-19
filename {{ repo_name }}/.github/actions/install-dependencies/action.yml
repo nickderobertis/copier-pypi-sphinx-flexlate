@@ -8,33 +8,34 @@ inputs:
 runs:
   using: composite
   steps:
-    - name: Install pipenv
+    - name: Install System Dependencies
       shell: bash
-      run: pipx install pipenv
+      run: |
+        pipx install pipenv
+        pip install multivenv
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
         cache: pipenv
+    - id: get-requirements-path
+      shell: bash
+      run: |
+        reqs_file=$(python reqs_path.py)
+        global_reqs_file=$(python reqs_path.py global)
+        echo "::set-output name=requirements-path::$reqs_file"
+        echo "::set-output name=global-requirements-path::$global_reqs_file"
     - uses: actions/cache@v3
       name: Cache global dependencies
       with:
         path: ${{ env.pythonLocation }}
-        key: ${{ env.pythonLocation }}-${{ hashFiles('*-requirements.txt') }}
-    - name: Get Venvs Path
-      id: get-venv-path
-      shell: python
-      run: |
-        from pathlib import Path
-        home = Path("~").expanduser()
-        venv_path = home / ".venvs"
-        print(f"::set-output name=venv-path::{venv_path}")
+        key: ${{ env.pythonLocation }}-${{ hashFiles(steps.get-requirements-path.outputs.global-requirements-path) }}
     - uses: actions/cache@v3
       id: cache-venvs
       name: Cache venvs
       with:
-        path: ${{ steps.get-venv-path.outputs.venv-path }}
-        key: ${{ env.pythonLocation }}-venvs-${{ hashFiles('*-requirements.txt') }}
+        path: venvs
+        key: ${{ env.pythonLocation }}-venvs-${{ hashFiles(steps.get-requirements-path.outputs.requirements-path) }}
     - name: Install main dependencies
       shell: bash
       run: |
@@ -42,7 +43,7 @@ runs:
     - name: Install global dependencies
       shell: bash
       run: |
-        pip install -r global-requirements.txt
+        mvenv sync global
     - name: Create venvs
       shell: bash
       if: steps.cache-venvs.outputs.cache-hit != 'true'
