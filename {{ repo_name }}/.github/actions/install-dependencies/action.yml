@@ -12,7 +12,9 @@ runs:
       shell: bash
       run: |
         pipx install pipenv
-        pip install multivenv
+        # TODO: Not sure why PyYAML install is required, but was getting import yaml error
+        # This is despite this dependency getting installed on other systems.
+        pip install multivenv PyYAML
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v3
       with:
