@@ -8,7 +8,7 @@ flake8==4.0.1
     # via -r lint-requirements.in
 mccabe==0.6.1
     # via flake8
-mypy==0.961
+mypy==0.971
     # via -r lint-requirements.in
 mypy-extensions==0.4.3
     # via mypy
