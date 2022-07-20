@@ -69,7 +69,7 @@ def strip_imports(session):
         "--remove-all-unused-imports",
         "--in-place",
         "--recursive",
-        "--exclude=test*,__init__.py",
+        "--exclude=test*,__init__.py,venv*,build*,dist*,node_modules*",
         *files,
     )
     if session.interactive:
