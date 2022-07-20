@@ -17,7 +17,7 @@ def main():
     venvs = config.venvs
 
     info = multivenv.info(venv_names, venvs=venvs, quiet=True)
-    out_paths = [info.config_requirements.out_path for info in info]
+    out_paths = [info.discovered_requirements.out_path for info in info]
     out_str = ", ".join(str(path) for path in out_paths)
     print(out_str)
 
