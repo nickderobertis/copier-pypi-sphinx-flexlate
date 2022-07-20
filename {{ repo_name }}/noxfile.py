@@ -65,6 +65,7 @@ def strip_imports(session):
     else:
         files = ["."]
 
+    base_command = ("mvenv", "run", "global", "--", "autoflake")
     common_args = (
         "--remove-all-unused-imports",
         "--in-place",
@@ -74,18 +75,16 @@ def strip_imports(session):
     )
     if session.interactive:
         # When run as user, strip unused imports and exit successfully
-        session.run("autoflake", *common_args)
+        session.run(*base_command, *common_args)
     else:
         # When run from CI, fail the check if stripping is not correct
-        session.run("autoflake", "--check", *common_args)
+        session.run(*base_command, "--check", *common_args)
 
 
 @nox.session
 def test(session):
     reqs_path = _tests_req_path(session)
-    session.install(
-        "-r", reqs_path, "--upgrade", "--upgrade-strategy", "eager"
-    )
+    session.install("-r", reqs_path, "--upgrade", "--upgrade-strategy", "eager")
     session.install(".")
     session.run("pytest", *session.posargs)
 
@@ -93,9 +92,7 @@ def test(session):
 @nox.session
 def test_coverage(session):
     reqs_path = _tests_req_path(session)
-    session.install(
-        "-r", reqs_path, "--upgrade", "--upgrade-strategy", "eager"
-    )
+    session.install("-r", reqs_path, "--upgrade", "--upgrade-strategy", "eager")
     session.install(".")
     session.run("pytest", "--cov=./", "--cov-report=xml")
 
@@ -109,7 +106,16 @@ def docs(session):
 
 
 def _tests_req_path(session) -> str:
-    return session.run("mvenv", "run", "global", "python", "reqs_path.py", "test", external=True, silent=True).strip()
+    return session.run(
+        "mvenv",
+        "run",
+        "global",
+        "python",
+        "reqs_path.py",
+        "test",
+        external=True,
+        silent=True,
+    ).strip()
 
 
 def _setup_venv(session, venv_name: str):
