@@ -2,6 +2,7 @@ platforms:
   - linux-x86_64
   - win32
   - macosx_10_15_x86_64
+  - macosx_10_15_universal2
 venv_folder: venvs
 venv_names: null
 venvs:
