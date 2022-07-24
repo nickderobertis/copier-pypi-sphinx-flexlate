@@ -18,6 +18,8 @@ runs:
       run: |
         pipx install pipenv
         pip install multivenv
+    - name: Install Just command runner
+      uses: extractions/setup-just@v1
     - id: get-requirements-path
       shell: bash
       run: |
@@ -44,4 +46,4 @@ runs:
       shell: bash
       if: steps.cache-venvs.outputs.cache-hit != 'true'
       run: |
-        mvenv sync global lint
+        mvenv sync
