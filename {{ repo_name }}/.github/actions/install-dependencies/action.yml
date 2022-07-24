@@ -23,9 +23,9 @@ runs:
     - id: get-requirements-path
       shell: bash
       run: |
-        reqs_file=$(python reqs_path.py)
+        reqs_extension=$(python reqs_extension.py)
         global_reqs_file=$(python reqs_path.py global)
-        echo "::set-output name=requirements-path::$reqs_file"
+        echo "::set-output name=requirements-extension::$reqs_extension"
         echo "::set-output name=global-requirements-path::$global_reqs_file"
     - uses: actions/cache@v3
       name: Cache global dependencies
@@ -37,7 +37,7 @@ runs:
       name: Cache venvs
       with:
         path: venvs
-        key: ${{ env.pythonLocation }}-venvs-${{ hashFiles(steps.get-requirements-path.outputs.requirements-path) }}
+        key: ${{ env.pythonLocation }}-venvs-${{ hashFiles(format("requirements/*-requirements-{0}.txt", steps.get-requirements-path.outputs.requirements-extension)) }}
     - name: Install main dependencies
       shell: bash
       run: |

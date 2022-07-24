@@ -31,7 +31,7 @@ isort==5.10.1
     # via
     #   -r global-requirements.in
     #   py-app-conf
-multivenv==1.0.0a14
+multivenv==1.0.0a16
     # via -r global-requirements.in
 mypy-extensions==0.4.3
     # via black
