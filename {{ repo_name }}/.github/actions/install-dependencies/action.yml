@@ -37,7 +37,7 @@ runs:
       name: Cache venvs
       with:
         path: venvs
-        key: ${{ env.pythonLocation }}-venvs-${{ hashFiles(format("requirements/*-requirements-{0}.txt", steps.get-requirements-path.outputs.requirements-extension)) }}
+        key: ${{ env.pythonLocation }}-venvs-${{ hashFiles(format('requirements/*-requirements-{0}.txt', steps.get-requirements-path.outputs.requirements-extension)) }}
     - name: Install main dependencies
       shell: bash
       run: |
