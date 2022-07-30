@@ -18,6 +18,8 @@ py==1.11.0
     # via pytest
 pyparsing==3.0.9
     # via packaging
+pypi-sphinx-flexlate-example @ file:///tmp/tmpw7os2k6m/pypi-sphinx-flexlate-example
+    # via -r test-requirements.in
 pytest==7.1.2
     # via
     #   -r test-requirements.in
