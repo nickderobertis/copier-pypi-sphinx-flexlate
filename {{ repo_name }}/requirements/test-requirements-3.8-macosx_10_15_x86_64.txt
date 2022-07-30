@@ -4,7 +4,9 @@
 #
 #    mvenv compile
 #
-attrs==21.4.0
+-e file:.#egg=pypi_sphinx_flexlate_example
+    # via -r test-requirements.in
+attrs==22.1.0
     # via pytest
 coverage[toml]==6.4.2
     # via pytest-cov
@@ -18,8 +20,6 @@ py==1.11.0
     # via pytest
 pyparsing==3.0.9
     # via packaging
-pypi-sphinx-flexlate-example @ file://.
-    # via -r test-requirements.in
 pytest==7.1.2
     # via
     #   -r test-requirements.in
