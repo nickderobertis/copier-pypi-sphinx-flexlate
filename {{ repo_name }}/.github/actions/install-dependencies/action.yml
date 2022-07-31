@@ -21,6 +21,9 @@ runs:
       run: |
         pipx install pipenv
         pip install multivenv
+    - name: Print out system info
+      shell: bash
+      run: mvenv info -i json
     - name: Install Just command runner
       uses: extractions/setup-just@v1
       env:
