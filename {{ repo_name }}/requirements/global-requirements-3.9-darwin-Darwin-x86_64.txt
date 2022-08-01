@@ -71,9 +71,9 @@ isort==5.10.1 \
     # via
     #   -r global-requirements.in
     #   py-app-conf
-multivenv==1.0.0a29 \
-    --hash=sha256:856789d4f0de0cb7ee2253f7f5c2c21899b022b5cc6cc337ecfe64a1e6042595 \
-    --hash=sha256:93c56cd2c8f0d6eac25c75056eebeb97705fbeb82743221319837f2b15d80cce
+multivenv==1.0.0a32 \
+    --hash=sha256:89634c62a831bcfe3c791bdb7da358d94b6abcf663736caa0c5c376966e8420a \
+    --hash=sha256:ee92f381213fd2b98b50e4600df7c5623e0ce437a4b25fc062a075d1deb09cd7
     # via -r global-requirements.in
 mypy-extensions==0.4.3 \
     --hash=sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d \
