@@ -21,9 +21,6 @@ runs:
       run: |
         pipx install pipenv
         pip install multivenv
-    - name: Print out system info
-      shell: bash
-      run: mvenv info -i json
     - name: Install Just command runner
       uses: extractions/setup-just@v1
       env:
@@ -32,14 +29,8 @@ runs:
       shell: bash
       run: |
         reqs_extension=$(python reqs_extension.py)
-        global_reqs_file=$(python reqs_path.py global)
         echo "::set-output name=requirements-extension::$reqs_extension"
-        echo "::set-output name=global-requirements-path::$global_reqs_file"
-    - uses: actions/cache@v3
-      name: Cache global dependencies
-      with:
-        path: ${{ env.pythonLocation }}
-        key: ${{ env.pythonLocation }}-${{ hashFiles(steps.get-requirements-path.outputs.global-requirements-path) }}
+        echo "Will cache requirements files with extension $reqs_extension"
     - uses: actions/cache@v3
       id: cache-venvs
       name: Cache venvs
