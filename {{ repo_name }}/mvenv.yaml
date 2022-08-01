@@ -1,8 +1,3 @@
-platforms:
-  - linux-x86_64
-  - win_amd64
-  - macosx_10_15_x86_64
-  - macosx_10_15_universal2
 venv_folder: venvs
 venv_names: null
 venvs:
@@ -13,7 +8,12 @@ venvs:
   test:
     requirements_out: requirements/test-requirements.txt
 # TODO: add dev venv to replace pipenv
-versions:
-  - "3.8"
-  - "3.9"
-  - "3.10"
+targets:
+  platforms:
+    - windows
+    - linux
+    - macos
+  versions:
+    - "3.8"
+    - "3.9"
+    - "3.10"
