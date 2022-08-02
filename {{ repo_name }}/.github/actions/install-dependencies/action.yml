@@ -34,14 +34,14 @@ runs:
     - name: Show hash path
       shell: bash
       run: |
-        echo "Hash path: ${{ format('requirements/*-requirements-{0}.txt', steps.get-requirements-path.outputs.requirements-extension) }}"
-        echo "Hash: ${{ hashFiles(format('requirements/*-requirements-{0}.txt', steps.get-requirements-path.outputs.requirements-extension)) }}"
+        echo "Hash path: ${{ format('requirements/*-requirements{0}.txt', steps.get-requirements-path.outputs.requirements-extension) }}"
+        echo "Hash: ${{ hashFiles(format('requirements/*-requirements{0}.txt', steps.get-requirements-path.outputs.requirements-extension)) }}"
     - uses: actions/cache@v3
       id: cache-venvs
       name: Cache venvs
       with:
         path: venvs
-        key: ${{ env.pythonLocation }}-venvs-${{ hashFiles(format('requirements/*-requirements-{0}.txt', steps.get-requirements-path.outputs.requirements-extension)) }}
+        key: ${{ env.pythonLocation }}-venvs-${{ hashFiles(format('requirements/*-requirements{0}.txt', steps.get-requirements-path.outputs.requirements-extension)) }}
     - name: Install main dependencies
       shell: bash
       run: |
