@@ -7,6 +7,7 @@ venvs:
     requirements_out: requirements/global-requirements.txt
   test:
     requirements_out: requirements/test-requirements.txt
+    post_sync: pip install -e .
 # TODO: add dev venv to replace pipenv
 targets:
   platforms:

@@ -1,3 +1,2 @@
-file:.#egg=pypi_sphinx_flexlate_example
 pytest
 pytest-cov
