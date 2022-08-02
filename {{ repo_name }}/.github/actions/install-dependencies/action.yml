@@ -31,11 +31,6 @@ runs:
         reqs_extension=$(python reqs_extension.py)
         echo "::set-output name=requirements-extension::$reqs_extension"
         echo "Will cache requirements files with extension $reqs_extension"
-    - name: Show hash path
-      shell: bash
-      run: |
-        echo "Hash path: ${{ format('requirements/*-requirements{0}.txt', steps.get-requirements-path.outputs.requirements-extension) }}"
-        echo "Hash: ${{ hashFiles(format('requirements/*-requirements{0}.txt', steps.get-requirements-path.outputs.requirements-extension)) }}"
     - uses: actions/cache@v3
       id: cache-venvs
       name: Cache venvs
