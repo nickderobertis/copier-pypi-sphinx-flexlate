@@ -1,7 +1,7 @@
 run := "mvenv run global --"
 run-lint := "mvenv run lint --"
 run-test := "mvenv run test --"
-prun := "pipenv run"
+run-docs := "mvenv run docs --"
 
 default: format strip lint test
 check: format-check strip-check lint test
@@ -35,10 +35,10 @@ test-coverage *OPTIONS:
     {{run-test}} pytest --cov=./ --cov-report=xml {{OPTIONS}}
 
 docs-build:
-    cd docsrc && {{prun}} make github
+    cd docsrc && {{run-docs}} make github
 
 docs-serve:
-    cd docsrc && {{prun}} ./dev-server.sh
+    cd docsrc && {{run-docs}} ./dev-server.sh
 
 docs:
     just docs-build

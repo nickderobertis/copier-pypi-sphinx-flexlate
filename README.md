@@ -80,17 +80,10 @@ Add your project code to the folder named by `PACKAGE_NAME`.
 
 ### Adding Global Requirements to Build
 
-If you do not already have `pipenv` installed, you will need to run:
+If you do not already have `pipx` installed, you will need to run:
 
 ```
-pip install pipenv
-```
-
-Then regardless of whether you already had `pipenv` installed, you will
-need to navigate to the repo folder and run:
-
-```
-pipenv update
+pip install pipx
 ```
 
 ### Setting up Documentation
@@ -226,7 +219,7 @@ the HTML files in the `docs` folder via a browser after building them.
 Navigate into the `docsrc` folder and run:
 
 ```
-pipenv run make github
+just docs-build
 ```
 
 This should generate documentation HTML in the `docs` folder.
@@ -234,9 +227,7 @@ This should generate documentation HTML in the `docs` folder.
 For development, get an auto-reloading development server by running:
 
 ```shell
-pipenv shell
-cd docsrc
-./dev-server.sh
+just docs
 ```
 
 ### Uploading to PyPi
@@ -244,14 +235,14 @@ cd docsrc
 Navigate to the repo base folder and run:
 
 ```
-pipenv run python upload.py
+mvenv run global python upload.py
 ```
 
 ### Updating Build Requirements
 
-The Github Actions CI/CD uses `Pipfile.lock` to install its
-requirements. Run `pipenv update` locally to update the
-`Pipfile.lock` with the newest dependencies and push into
+The Github Actions CI/CD uses `multivenv` to install its
+requirements. Run `mvenv compile` locally to update the
+`requirements/*.txt` with the newest dependencies and push into
 the `master` branch to get the dependencies updated
 on the CI/CD system.
 

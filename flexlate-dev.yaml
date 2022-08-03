@@ -46,15 +46,16 @@ run_configs:
           }} .; else git pull origin main; fi
     serve:
       post_init:
+        - direnv allow
         - npm install
-        - pipenv sync
+        - mvenv sync dev
       auto_commit_message: "chore: Auto-commit manual changes"
   docs:
     extends: default
     serve:
       post_init:
+        - direnv allow
         - npm install
-        - pipenv sync
-        - pipenv run bash -c "cd docsrc && make github"
-        - run: pipenv run bash -c "cd docsrc && ./dev-server.sh"
+        - mvenv sync dev
+        - run: just docs
           background: true

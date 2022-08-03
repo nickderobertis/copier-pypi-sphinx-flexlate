@@ -16,9 +16,13 @@
   },
   "lint-staged": {
     "*.py": [
-      "pipenv run nox -s format_files -- ",
-      "pipenv run nox -s strip --non-interactive -- "
+      "just format ",
+      "just strip "
     ],
-    "*-requirements.in": "mvenv compile lint "
+    "lint-requirements.in": "mvenv compile lint ",
+    "test-requirements.in": "mvenv compile test ",
+    "docs-requirements.in": "mvenv compile docs ",
+    "dev-requirements.in": "mvenv compile dev ",
+    "global-requirements.in": "mvenv compile global "
   }
 }

@@ -8,7 +8,11 @@ venvs:
   test:
     requirements_out: requirements/test-requirements.txt
     post_sync: pip install -e .
-# TODO: add dev venv to replace pipenv
+  dev:
+    requirements_out: requirements/dev-requirements.txt
+    post_sync: pip install -e .
+  docs:
+    requirements_out: requirements/docs-requirements.txt
 targets:
   platforms:
     - windows

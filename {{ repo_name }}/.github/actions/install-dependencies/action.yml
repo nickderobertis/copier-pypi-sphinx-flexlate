@@ -15,12 +15,9 @@ runs:
       uses: actions/setup-python@v3
       with:
         python-version: ${{ matrix.python-version }}
-        cache: pipenv
-    - name: Install System Dependencies
+    - name: Install Multivenv
       shell: bash
-      run: |
-        pipx install pipenv
-        pip install multivenv
+      run: pip install multivenv
     - name: Install Just command runner
       uses: extractions/setup-just@v1
       env:
@@ -37,10 +34,6 @@ runs:
       with:
         path: venvs
         key: ${{ env.pythonLocation }}-venvs-${{ hashFiles(format('requirements/*-requirements{0}.txt', steps.get-requirements-path.outputs.requirements-extension)) }}
-    - name: Install main dependencies
-      shell: bash
-      run: |
-        pipenv --python ${{ matrix.python-version }} sync
     - name: Create venvs
       shell: bash
       if: steps.cache-venvs.outputs.cache-hit != 'true'
