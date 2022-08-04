@@ -10,7 +10,7 @@ appdirs==1.4.4 \
     # via py-app-conf
 autoflake==1.4 \
     --hash=sha256:61a353012cff6ab94ca062823d1fb2f692c4acda51c76ff83a8d77915fba51ea
-    # via -r global-requirements.in
+    # via -r /tmp/tmpc16ip5b2/pypi-sphinx-flexlate-example/global-requirements.in
 black==22.6.0 \
     --hash=sha256:074458dc2f6e0d3dab7928d4417bb6957bb834434516f21514138437accdbe90 \
     --hash=sha256:187d96c5e713f441a5829e77120c269b6514418f4513a390b0499b0987f2ff1c \
@@ -36,7 +36,7 @@ black==22.6.0 \
     --hash=sha256:f586c26118bc6e714ec58c09df0157fe2d9ee195c764f630eb0d8e7ccce72e69 \
     --hash=sha256:f6fe02afde060bbeef044af7996f335fbe90b039ccf3f5eb8f16df8b20f77666
     # via
-    #   -r global-requirements.in
+    #   -r /tmp/tmpc16ip5b2/pypi-sphinx-flexlate-example/global-requirements.in
     #   py-app-conf
 bleach==5.0.1 \
     --hash=sha256:085f7f33c15bd408dd9b17a4ad77c577db66d76203e5984b1bd59baeee948b2a \
@@ -61,9 +61,9 @@ click==8.1.3 \
     #   black
     #   pip-tools
     #   typer
-cliconf==1.0.0a10 \
-    --hash=sha256:84e0662fb75813ceb89d83e3a70dc0f5b4670f4b7e332d24d42e08dc89a63b2c \
-    --hash=sha256:cbda1ef05c8651071a47826f962d5a22cddd4829ae9c89a795db369e813e54d4
+cliconf==1.0.0a12 \
+    --hash=sha256:f5b748f11e529f4773deac60b22c23f2c6e26940a80baf9786aff68084de3483 \
+    --hash=sha256:f9afa24dee16af2f0708d6e64199feb278c4bcc80020639458711de3c34445be
     # via multivenv
 commonmark==0.9.1 \
     --hash=sha256:452f9dc859be7f06631ddcb328b6919c67984aca654e5fefb3914d54691aed60 \
@@ -95,16 +95,16 @@ isort==5.10.1 \
     --hash=sha256:6f62d78e2f89b4500b080fe3a81690850cd254227f27f75c3a0c491a1f351ba7 \
     --hash=sha256:e8443a5e7a020e9d7f97f1d7d9cd17c88bcb3bc7e218bf9cf5095fe550be2951
     # via
-    #   -r global-requirements.in
+    #   -r /tmp/tmpc16ip5b2/pypi-sphinx-flexlate-example/global-requirements.in
     #   py-app-conf
 keyring==23.7.0 \
     --hash=sha256:782e1cd1132e91bf459fcd243bcf25b326015c1ac0b198e4408f91fa6791062b \
     --hash=sha256:e67fc91a7955785fd2efcbccdd72d7dacf136dbc381d27de305b2b660b3de886
     # via twine
-multivenv==1.0.0a34 \
-    --hash=sha256:d79351cc82bc54da0140fb9717c8c9bc3e548756cb4ce3e0ab8f4c224ab7615c \
-    --hash=sha256:db3f561df94f5385cb3e6998793a59d097602037d325e629432ab13d339ed7c7
-    # via -r global-requirements.in
+multivenv==1.0.0a36 \
+    --hash=sha256:5bff0c9e391b84ad5cc43d9b9c483f4641b49cfad7e2fd243d585818c8020cbd \
+    --hash=sha256:a01592ec47022442b1d49426b3e1bd9e0ad3003cbf3a84ab83abd1f8928ae2a4
+    # via -r /tmp/tmpc16ip5b2/pypi-sphinx-flexlate-example/global-requirements.in
 mypy-extensions==0.4.3 \
     --hash=sha256:090fedd75945a69ae91ce1303b5824f428daf5a028d2f6ab8a299250a846f15d \
     --hash=sha256:2d82818f5bb3e369420cb3c4060a7970edba416647068eb4c5343488a6c604a8
@@ -271,7 +271,7 @@ tomli==2.0.1 \
 twine==4.0.1 \
     --hash=sha256:42026c18e394eac3e06693ee52010baa5313e4811d5a11050e7d48436cf41b9e \
     --hash=sha256:96b1cf12f7ae611a4a40b6ae8e9570215daff0611828f5fe1f37a16255ab24a0
-    # via -r global-requirements.in
+    # via -r /tmp/tmpc16ip5b2/pypi-sphinx-flexlate-example/global-requirements.in
 typer==0.6.1 \
     --hash=sha256:2d5720a5e63f73eaf31edaa15f6ab87f35f0690f8ca233017d7d23d743a91d73 \
     --hash=sha256:54b19e5df18654070a82f8c2aa1da456a4ac16a2a83e6dcd9f170e291c56338e
@@ -290,9 +290,9 @@ urllib3==1.26.11 \
     # via
     #   requests
     #   twine
-virtualenv==20.16.2 \
-    --hash=sha256:0ef5be6d07181946891f5abc8047fda8bc2f0b4b9bf222c64e6e8963baee76db \
-    --hash=sha256:635b272a8e2f77cb051946f46c60a54ace3cb5e25568228bd6b57fc70eca9ff3
+virtualenv==20.16.3 \
+    --hash=sha256:4193b7bc8a6cd23e4eb251ac64f29b4398ab2c233531e66e40b19a6b7b0d30c1 \
+    --hash=sha256:d86ea0bb50e06252d79e6c241507cb904fcd66090c3271381372d6221a3970f9
     # via multivenv
 webencodings==0.5.1 \
     --hash=sha256:a0af1213f3c2226497a97e2b3aa01a7e4bee4f403f95be16fc9acd2947514a78 \
