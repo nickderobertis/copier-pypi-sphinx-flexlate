@@ -19,7 +19,7 @@ the following features:
   - Read the Docs Theme with Custom CSS
   - Notebook-style examples with Sphinx Gallery complete with download and Binder links
     - Auto-converts Jupyter notebooks in `nbexamples`
-- Convenient CLI interface to normal development tasks using [`nox`](https://nox.thea.codes/en/stable/)
+- Convenient CLI interface to normal development tasks using [`just`](https://github.com/casey/just)
 - Automatically creates release notes based on merged pull requests
   once a commit is done to master with the version changed in `conf.py`
 - Syncs new changes from the copier template using Flexlate
