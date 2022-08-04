@@ -10,7 +10,7 @@ def main():
     venvs = config.venvs
     targets = config.targets
 
-    info = multivenv.info(None, venvs=venvs, targets=targets, quiet=True)
+    info = multivenv.info.invoke(venv_names=None, venvs=venvs, targets=targets, quiet=True)
     # Find the correct extension by comparing the possible extensions for the system
     # to the default output extensions from the config
     for system_extension in info.system.file_extensions.all:
