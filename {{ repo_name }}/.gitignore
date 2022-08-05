@@ -67,3 +67,4 @@ _examples
 **/.ipynb_checkpoints
 venvs/
 node_modules
+scripts/bin/
