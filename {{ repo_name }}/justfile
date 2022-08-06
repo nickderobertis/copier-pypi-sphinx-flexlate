@@ -3,8 +3,27 @@ run-lint := "mvenv run lint --"
 run-test := "mvenv run test --"
 run-docs := "mvenv run docs --"
 
-default: format strip lint test
-check: format-check strip-check lint test
+default:
+    #!/usr/bin/env bash
+    exit_code=0
+
+    just format || ((exit_code++))
+    just strip || ((exit_code++))
+    just lint || ((exit_code++))
+    just test || ((exit_code++))
+
+    exit $exit_code
+
+check:
+    #!/usr/bin/env bash
+    exit_code=0
+
+    just format-check || ((exit_code++))
+    just strip-check || ((exit_code++))
+    just lint || ((exit_code++))
+    just test || ((exit_code++))
+
+    exit $exit_code
 
 
 format *FILES='.':
