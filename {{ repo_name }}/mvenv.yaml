@@ -8,9 +8,13 @@ venvs:
   test:
     requirements_out: requirements/test-requirements.txt
     post_sync: pip install -e .
+    auto_sync_changed:
+      - conf.py
   dev:
     requirements_out: requirements/dev-requirements.txt
     post_sync: pip install -e .
+    auto_sync_changed:
+      - conf.py
   docs:
     requirements_out: requirements/docs-requirements.txt
 targets:

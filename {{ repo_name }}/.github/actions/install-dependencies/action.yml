@@ -33,7 +33,7 @@ runs:
       name: Cache venvs
       with:
         path: venvs
-        key: ${{ env.pythonLocation }}-venvs-${{ hashFiles(format('requirements/*-requirements{0}.txt', steps.get-requirements-path.outputs.requirements-extension)) }}
+        key: ${{ env.pythonLocation }}-venvs-v2-${{ hashFiles(format('requirements/*-requirements{0}.txt', steps.get-requirements-path.outputs.requirements-extension)) }}
     - name: Create venvs
       shell: bash
       if: steps.cache-venvs.outputs.cache-hit != 'true'
