@@ -88,6 +88,11 @@ poetry command target *ARGS:
 run target *ARGS:
     @cd {{invocation_directory()}} && just poetry run {{target}} {{ARGS}}
 
+install:
+    just poetry install root
+    just poetry install lint
+    just poetry install docs
+
 inspect-build:
     rm -rf dist
     poetry build
