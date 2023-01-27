@@ -97,7 +97,3 @@ logo_url:
   help: Optional URL of a logo to use for the project
   default: ""
 
-install_packages:
-  type: str
-  help: Comma separated list of packages to install
-  default: ""
