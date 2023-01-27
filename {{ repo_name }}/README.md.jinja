@@ -54,10 +54,17 @@ upgrades will often have breaking changes.
 ## Developing
 
 First, you need a couple global dependencies installed, see their documentation for details:
-- [pipx](https://pypa.github.io/pipx/installation/)
 - [direnv](https://direnv.net/docs/installation.html)
+- [asdf](https://asdf-vm.com/guide/getting-started.html)
 
-Then clone the repo and run `npm install` and `mvenv sync dev`. Make your changes and then run `just` to run formatting,
+Note that these tools require a UNIX-style shell, such as bash or zsh. If
+you are on Windows, you can use WSL or Git Bash. If you are using Pycharm,
+you can configure the built-in terminal to use Git Bash.
+
+Then clone the repo and run `direnv allow`. This will take a while on the first time
+to install the remaining dependencies.
+
+Make your changes and then run `just` to run formatting,
 linting, and tests.
 
 Develop documentation by running `just docs` to start up a dev server.
