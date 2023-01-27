@@ -62,3 +62,28 @@ docs-serve:
 docs:
     just docs-build
     just docs-serve
+
+poetry command target *ARGS:
+    #!/usr/bin/env bash
+    # TODO: Does this work properly outside of repo root?
+
+    # Set the directory depending on whether the target is root or not
+    if [ "{{target}}" = "root" ]; then
+        DIRECTORY=.
+    else
+        if [ ! -d ".venvs/{{target}}" ]; then
+            echo "No such project environment {{target}}"
+            exit 1;
+        fi
+        DIRECTORY=.venvs/{{target}}
+    fi
+
+    if [ ! -d "${DIRECTORY}/.venv" ]; then
+        echo "Creating virtual environment for {{target}}"
+
+        poetry --directory $DIRECTORY install
+    fi
+    poetry --directory $DIRECTORY {{command}} {{ARGS}}
+
+run target *ARGS:
+    @just poetry run {{target}} {{ARGS}}

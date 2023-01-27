@@ -1,5 +1,6 @@
 [tool.poetry]
 name = "{{ package_name }}"
+version = "1.0.0"
 description = "{{ short_description }}"
 authors = ["{{ package_author }} <{{ author_email }}>"]
 readme = "README.md"
@@ -23,10 +24,14 @@ classifiers = [
 
 [tool.poetry.urls]
 repository = "https://github.com/{{ repo_username }}/{{ repo_name }}"
-documentation = "https://{{ repo_username }}.github.io/{{ repo_name }}",
+documentation = "https://{{ repo_username }}.github.io/{{ repo_name }}"
 
 [tool.poetry.dependencies]
 python = ">=3.7"
+
+[tool.poetry.group.test.dependencies]
+pytest = "*"
+pytest-cov = "*"
 
 [tool.black]
 include = '{{ package_directory }}.*\.pyi?$|tests.*\.pyi?$'
