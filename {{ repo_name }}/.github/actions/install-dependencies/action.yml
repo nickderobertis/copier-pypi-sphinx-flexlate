@@ -32,7 +32,7 @@ runs:
         path: |
           .venv
           .venvs
-        key: ${{ env.pythonLocation }}-venvs-${{ hashFiles("poetry.lock", ".venvs/*/poetry.lock") }}
+        key: ${{ env.pythonLocation }}-venvs-${{ hashFiles('**/poetry.lock') }}
     - name: Create venvs
       shell: bash
       if: steps.cache-venvs.outputs.cache-hit != 'true'
