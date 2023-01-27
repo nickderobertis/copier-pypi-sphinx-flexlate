@@ -47,8 +47,6 @@ run_configs:
     serve:
       post_init:
         - direnv allow
-        - npm install
-        - mvenv sync dev
       auto_commit_message: "chore: Auto-commit manual changes"
   docs:
     extends: default

@@ -77,15 +77,12 @@ poetry command target *ARGS:
         fi
         DIRECTORY="{{justfile_directory()}}/.venvs/{{target}}"
     fi
-    echo "Using directory $DIRECTORY"
-    echo "Current directory $PWD"
 
     if [ ! -d "${DIRECTORY}/.venv" ]; then
         echo "Creating virtual environment for {{target}}"
 
         poetry --directory $DIRECTORY install
     fi
-    echo "Running poetry --directory $DIRECTORY {{command}} {{ARGS}}"
     poetry --directory $DIRECTORY {{command}} {{ARGS}}
 
 run target *ARGS:
