@@ -1,7 +1,7 @@
-run := "mvenv run global --"
-run-lint := "mvenv run lint --"
-run-test := "mvenv run test --"
-run-docs := "mvenv run docs --"
+run := ""
+run-lint := "just run lint"
+run-test := "just run root"
+run-docs := "just run docs"
 
 default:
     #!/usr/bin/env bash
@@ -62,3 +62,41 @@ docs-serve:
 docs:
     just docs-build
     just docs-serve
+
+poetry command target *ARGS:
+    #!/usr/bin/env bash
+    cd {{invocation_directory()}}
+
+    # Set the directory depending on whether the target is root or not
+    if [ "{{target}}" = "root" ]; then
+        DIRECTORY="{{justfile_directory()}}"
+    else
+        if [ ! -d "{{justfile_directory()}}/.venvs/{{target}}" ]; then
+            echo "No such project environment {{target}}"
+            exit 1;
+        fi
+        DIRECTORY="{{justfile_directory()}}/.venvs/{{target}}"
+    fi
+
+    if [ ! -d "${DIRECTORY}/.venv" ]; then
+        echo "Creating virtual environment for {{target}}"
+
+        poetry --directory $DIRECTORY install
+    fi
+    poetry --directory $DIRECTORY {{command}} {{ARGS}}
+
+run target *ARGS:
+    @cd {{invocation_directory()}} && just poetry run {{target}} {{ARGS}}
+
+install:
+    just poetry install root
+    just poetry install lint
+    just poetry install docs
+
+inspect-build:
+    rm -rf dist
+    poetry build
+    @echo "Contents of sdist:"
+    @unzip -l dist/*.whl
+    @echo "Contents of wheel:"
+    @tar -tvf dist/*.tar.gz

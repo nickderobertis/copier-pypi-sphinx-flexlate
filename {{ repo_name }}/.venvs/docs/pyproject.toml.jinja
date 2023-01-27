@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "{{ package_name }}-docs"
+description = "Documentation building environment for {{ package_name }}"
+version = "1.0.0"
+authors = ["{{ package_author }} <{{ author_email }}>"]
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+{{ package_name }} = {path = "../..", develop = true}
+sphinx = "*"
+sphinx-autobuild = "*"
+sphinx-autodoc-typehints = "*"
+sphinxcontrib-fulltoc = "*"
+sphinx-paramlinks = "*"
+sphinx-gallery = "*"
+sphinx-copybutton = "*"
+pypandoc = "*"
+myst-parser = "*"
+sphinx-material = "*"

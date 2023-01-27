@@ -1,0 +1,11 @@
+[tool.poetry]
+name = "{{ package_name }}-lint"
+description = "Linting for {{ package_name }}"
+version = "1.0.0"
+authors = ["{{ package_author }} <{{ author_email }}>"]
+
+[tool.poetry.dependencies]
+python = ">=3.7"
+{{ package_name }} = {path = "../..", develop = true}
+flake8 = "*"
+mypy = "*"
