@@ -1,7 +1,7 @@
-run := "mvenv run global --"
-run-lint := "mvenv run lint --"
-run-test := "mvenv run test --"
-run-docs := "mvenv run docs --"
+run := ""
+run-lint := "just run lint"
+run-test := "just run root"
+run-docs := "just run docs"
 
 default:
     #!/usr/bin/env bash
@@ -65,25 +65,28 @@ docs:
 
 poetry command target *ARGS:
     #!/usr/bin/env bash
-    # TODO: Does this work properly outside of repo root?
+    cd {{invocation_directory()}}
 
     # Set the directory depending on whether the target is root or not
     if [ "{{target}}" = "root" ]; then
-        DIRECTORY=.
+        DIRECTORY="{{justfile_directory()}}"
     else
-        if [ ! -d ".venvs/{{target}}" ]; then
+        if [ ! -d "{{justfile_directory()}}/.venvs/{{target}}" ]; then
             echo "No such project environment {{target}}"
             exit 1;
         fi
-        DIRECTORY=.venvs/{{target}}
+        DIRECTORY="{{justfile_directory()}}/.venvs/{{target}}"
     fi
+    echo "Using directory $DIRECTORY"
+    echo "Current directory $PWD"
 
     if [ ! -d "${DIRECTORY}/.venv" ]; then
         echo "Creating virtual environment for {{target}}"
 
         poetry --directory $DIRECTORY install
     fi
+    echo "Running poetry --directory $DIRECTORY {{command}} {{ARGS}}"
     poetry --directory $DIRECTORY {{command}} {{ARGS}}
 
 run target *ARGS:
-    @just poetry run {{target}} {{ARGS}}
+    @cd {{invocation_directory()}} && just poetry run {{target}} {{ARGS}}
