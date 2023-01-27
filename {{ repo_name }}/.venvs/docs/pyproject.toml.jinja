@@ -5,7 +5,7 @@ version = "1.0.0"
 authors = ["{{ package_author }} <{{ author_email }}>"]
 
 [tool.poetry.dependencies]
-python = ">=3.7"
+python = ">={{ minimum_python_version }}"
 {{ package_name }} = {path = "../..", develop = true}
 sphinx = "*"
 sphinx-autobuild = "*"
