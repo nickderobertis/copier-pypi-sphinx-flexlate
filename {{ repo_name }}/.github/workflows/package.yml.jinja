@@ -52,16 +52,6 @@ jobs:
         with:
           pypi_token: ${{ secrets.PYPI_PASSWORD }}
           github_token: ${{ secrets.GH_TOKEN }}
-      - uses: ./.github/actions/install-dependencies
-        if: steps.semantic-release.outputs.new_release_published == 'true'
-        with:
-          python-version: ${{ matrix.python-version }}
-          gh-token: ${{ secrets.GH_TOKEN }}
-      - name: Deploy docs
-        if: steps.semantic-release.outputs.new_release_published == 'true'
-        uses: ./.github/actions/build-and-deploy-docs
-        with:
-          gh-token: ${{ secrets.GH_TOKEN }}
 
   coverage:
     needs: deploy
