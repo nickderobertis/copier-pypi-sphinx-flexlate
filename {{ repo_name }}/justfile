@@ -87,3 +87,11 @@ poetry command target *ARGS:
 
 run target *ARGS:
     @cd {{invocation_directory()}} && just poetry run {{target}} {{ARGS}}
+
+inspect-build:
+    rm -rf dist
+    poetry build
+    @echo "Contents of sdist:"
+    @unzip -l dist/*.whl
+    @echo "Contents of wheel:"
+    @tar -tvf dist/*.tar.gz
