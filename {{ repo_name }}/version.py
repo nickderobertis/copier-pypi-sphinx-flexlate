@@ -10,7 +10,7 @@ def get_version() -> str:
         for line in f:
             if line.startswith("version"):
                 return line.split("=")[1].strip().replace('"', "")
-    raise ValueError("could not find version in setup.cfg")
+    raise ValueError("could not find version in pyproject.toml")
 
 
 if __name__ == "__main__":
