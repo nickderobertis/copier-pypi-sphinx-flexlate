@@ -1,5 +1,9 @@
 # yaml-language-server: $schema=https://nickderobertis.github.io/flexlate-dev/_static/config-schema.json
-commands: []
+commands:
+- name: Copy Extra Examples files into Template
+  id: copy-extra-examples
+  run: |
+    cp -R {{ context.paths.template_root }}/for-example/* .
 data:
   default:
     data:
@@ -32,11 +36,13 @@ run_configs:
     data_name: default
     publish:
       post_init:
+        - id: copy-extra-examples
         - gh repo create --public --source=.
         - git push origin main
         - git push --all origin
       post_update:
         - fxt merge
+        - id: copy-extra-examples
         - echo $(date) > .github/IGNORE_THIS_FILE.txt
         - git add -A
         - "git commit -m 'feat: Add a dummy change to trigger release'"
@@ -47,6 +53,7 @@ run_configs:
     serve:
       post_init:
         - direnv allow
+        - id: copy-extra-examples
       auto_commit_message: "chore: Auto-commit manual changes"
   docs:
     extends: default
