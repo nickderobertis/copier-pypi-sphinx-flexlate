@@ -1,5 +1,5 @@
 {% set python_minor_version = minimum_python_version | replace("3.", "") | int  %}
-name: Run lint/format checks and tests
+name: Run PR lint/format checks and tests
 on: [pull_request]
 
 jobs:
@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - uses: ./.github/actions/install-dependencies
-        with:
+      with:
         python-version: ${{ matrix.python-version }}
         gh-token: ${{ secrets.GH_TOKEN }}
     # TODO: Check test coverage
