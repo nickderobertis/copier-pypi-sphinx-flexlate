@@ -1,0 +1,21 @@
+{% set python_minor_version = minimum_python_version | replace("3.", "") | int  %}
+name: Run PR lint/format checks and tests
+on: [pull_request]
+
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [{% for os_base in os_support %}{{ os_base }}-latest, {% endfor %}]
+        python-version: [{% for minor_version in range(python_minor_version, 11)  %}"3.{{ minor_version }}", {% endfor %}]
+{%- raw %}
+    runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v3
+    - uses: ./.github/actions/install-dependencies
+      with:
+        python-version: ${{ matrix.python-version }}
+        gh-token: ${{ secrets.GH_TOKEN }}
+    # TODO: Check test coverage
+    - uses: ./.github/actions/lint-and-test
+{%- endraw %}
