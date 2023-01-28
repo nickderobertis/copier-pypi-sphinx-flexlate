@@ -28,7 +28,7 @@ repository = "https://github.com/{{ repo_username }}/{{ repo_name }}"
 documentation = "https://{{ repo_username }}.github.io/{{ repo_name }}"
 
 [tool.poetry.dependencies]
-python = ">=3.7"
+python = ">={{ minimum_python_version }}"
 
 [tool.poetry.group.test.dependencies]
 pytest = "*"
