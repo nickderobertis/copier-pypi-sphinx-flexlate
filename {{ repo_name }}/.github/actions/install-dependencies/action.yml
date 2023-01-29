@@ -23,9 +23,9 @@ runs:
       run: |
         pip install -r global-requirements.txt
     - name: Install Just command runner
-      uses: extractions/setup-just@v1
-      env:
-        GITHUB_TOKEN: ${{ inputs.gh-token }}
+      uses: taiki-e/install-action@v2
+      with:
+        tool: just@1.13.0
     - uses: actions/cache@v3
       id: cache-venvs
       name: Cache venvs
