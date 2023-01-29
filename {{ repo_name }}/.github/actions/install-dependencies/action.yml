@@ -7,6 +7,7 @@ inputs:
   gh-token:
     required: true
     description: "The GitHub token to use for authentication."
+    default: ${{ github.token }}
 
 runs:
   using: composite
@@ -37,4 +38,4 @@ runs:
       shell: bash
       if: steps.cache-venvs.outputs.cache-hit != 'true'
       run: |
-        just poetry-all install
+        just poetry-all install --all-extras
