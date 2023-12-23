@@ -1,3 +1,7 @@
+[project]
+name = "{{ package_name }}"
+version = "1.0.0"
+
 [tool.poetry]
 name = "{{ package_name }}"
 version = "1.0.0"
@@ -33,6 +37,9 @@ python = ">={{ minimum_python_version }}"
 [tool.poetry.group.test.dependencies]
 pytest = "*"
 pytest-cov = "*"
+
+[tool.setuptools]
+packages = ["{{ package_directory }}"]
 
 [tool.black]
 include = '{{ package_directory }}.*\.pyi?$|tests.*\.pyi?$'
