@@ -31,8 +31,7 @@ jobs:
         run: |
           # Temporary workaround for https://github.com/yaml/pyyaml/issues/601
           pip install 'cython<3'
-          pip install pyyaml==5.4.1 --no-build-isolation
-          pip install -r "$REPO_NAME/publish-requirements.txt"
+          pip install -r "$REPO_NAME/publish-requirements.txt" --no-build-isolation
         env:
           REPO_NAME: ${{ steps.repo_name.outputs.repo_name }}
       - name: Configure Git Committer
