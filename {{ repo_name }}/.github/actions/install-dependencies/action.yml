@@ -4,10 +4,6 @@ inputs:
   python-version:
     required: true
     description: "The Python version to install dependencies for."
-  gh-token:
-    required: true
-    description: "The GitHub token to use for authentication."
-    default: ${{ github.token }}
 
 runs:
   using: composite

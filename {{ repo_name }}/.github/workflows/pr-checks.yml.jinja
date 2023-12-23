@@ -15,7 +15,6 @@ jobs:
     - uses: ./.github/actions/install-dependencies
       with:
         python-version: ${{ matrix.python-version }}
-        gh-token: ${{ secrets.GH_TOKEN }}
     # TODO: Check test coverage
     - uses: ./.github/actions/lint-and-test
 {%- endraw %}

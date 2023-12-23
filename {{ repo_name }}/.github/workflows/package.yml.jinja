@@ -23,7 +23,6 @@ jobs:
       - uses: ./.github/actions/install-dependencies
         with:
           python-version: ${{ matrix.python-version }}
-          gh-token: ${{ secrets.GH_TOKEN }}
       - uses: ./.github/actions/lint-and-test
 
   collectTODO:
@@ -65,7 +64,6 @@ jobs:
       - uses: ./.github/actions/install-dependencies
         with:
           python-version: ${{ matrix.python-version }}
-          gh-token: ${{ secrets.GH_TOKEN }}
       - name: Run coverage and upload to Codecov.io
         uses: ./.github/actions/test-coverage
         with:
