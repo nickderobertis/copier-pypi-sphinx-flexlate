@@ -23,12 +23,15 @@ jobs:
       - uses: actions/checkout@v3
         with:
           path: ${{ steps.repo_name.outputs.repo_name }}
-      - uses: actions/setup-python@v3
+      - uses: actions/setup-python@v5
         with:
           cache: pip
           cache-dependency-path: "**/publish-requirements.txt"
       - name: Install Flexlate Dev Tools
-        run: pip install -r "$REPO_NAME/publish-requirements.txt"
+        run: |
+          # Temporary workaround for https://github.com/yaml/pyyaml/issues/601
+          pip install 'cython<3'
+          pip install -r "$REPO_NAME/publish-requirements.txt" --no-build-isolation
         env:
           REPO_NAME: ${{ steps.repo_name.outputs.repo_name }}
       - name: Configure Git Committer

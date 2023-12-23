@@ -1,9 +1,9 @@
 # yaml-language-server: $schema=https://nickderobertis.github.io/flexlate-dev/_static/config-schema.json
 commands:
-- name: Copy Extra Examples files into Template
-  id: copy-extra-examples
-  run: |
-    cp -R {{ context.paths.template_root }}/for-example/* .
+  - name: Copy Extra Examples files into Template
+    id: copy-extra-examples
+    run: |
+      cp -R {{ context.paths.template_root }}/for-example/* .
 data:
   default:
     data:
@@ -60,7 +60,8 @@ run_configs:
     serve:
       post_init:
         - direnv allow
-        - npm install
-        - mvenv sync dev
-        - run: just docs
+        - id: copy-extra-examples
+        # TODO: Was defaulting to sh and so wouldn't work with direnv properly,
+        #  should update dfxt to have shell option and better defaults
+        - run: bash -c 'eval "$(direnv export bash)" && just sync docs && just docs'
           background: true
